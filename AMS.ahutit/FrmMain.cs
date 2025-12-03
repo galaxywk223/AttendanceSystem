@@ -141,7 +141,8 @@ namespace AMS.ahutit
                 DialogResult dialog = MessageBox.Show("导出成功！是否打开文件？", "导出成功", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialog == DialogResult.Yes)
                 {
-                    Process.Start("StudentList.xlsx");
+                    ProcessStartInfo psi = new ProcessStartInfo("StudentList.xlsx") { UseShellExecute = true };
+                    Process.Start(psi);
                 }
             }
         }

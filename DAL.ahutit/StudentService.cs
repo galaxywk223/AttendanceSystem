@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models.ahutit;
+using System.Data.SqlClient;
 
 namespace DAL.ahutit
 {
@@ -11,52 +12,220 @@ namespace DAL.ahutit
     {
         public bool isIdNoExisted(string idNo)
         {
-            //此处应有数据库操作代码，此处省略
-            //模拟数据库中已有身份证号为"123456789012345678"的学生记录
-            if (idNo == "123456789012345678")
+            string sql = "SELECT COUNT(*) FROM Student WHERE StudentIdNo=@StudentIdNo";
+            SqlParameter[] param = new SqlParameter[]
             {
-                return true; //身份证号已存在
+                new SqlParameter("@StudentIdNo", idNo)
+            };
+            try
+            {
+                int result = Convert.ToInt32(SQLHelper.GetSingleResult(sql, param));
+                return result > 0;
             }
-            else
+            catch (Exception ex)
             {
-                return false; //身份证号不存在
+                throw new Exception("Check ID No exists failed: " + ex.Message);
             }
         }
         public bool isCardNoExisted(string cardNo)
         {
-            //此处应有数据库操作代码，此处省略
-            //模拟数据库中已有卡号为"20230001"的学生记录
-            if (cardNo == "20230001")
+            string sql = "SELECT COUNT(*) FROM Student WHERE CardNo=@CardNo";
+            SqlParameter[] param = new SqlParameter[]
             {
-                return true; //卡号已存在
+                new SqlParameter("@CardNo", cardNo)
+            };
+            try
+            {
+                int result = Convert.ToInt32(SQLHelper.GetSingleResult(sql, param));
+                return result > 0;
             }
-            else
+            catch (Exception ex)
             {
-                return false; //卡号不存在
+                throw new Exception("Check Card No exists failed: " + ex.Message);
             }
         }
         public int addNewStd(Student newStudent)
         {
-            //此处应有数据库操作代码，此处省略
-            //模拟添加成功，返回1
-            return 1;
+            string sql = "INSERT INTO Student (StudentName, Gender, Birthday, StudentIdNo, CardNo, PhoneNumber, StudentAddress, ClassId, StudentImage, Age) " +
+                         "VALUES (@StudentName, @Gender, @Birthday, @StudentIdNo, @CardNo, @PhoneNumber, @StudentAddress, @ClassId, @StudentImage, @Age); " +
+                         "SELECT @@IDENTITY";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@StudentName", newStudent.StdName),
+                new SqlParameter("@Gender", newStudent.Gender),
+                new SqlParameter("@Birthday", newStudent.Birthday),
+                new SqlParameter("@StudentIdNo", newStudent.idNo),
+                new SqlParameter("@CardNo", newStudent.CardNo),
+                new SqlParameter("@PhoneNumber", newStudent.PhoneNumber),
+                new SqlParameter("@StudentAddress", newStudent.Address),
+                new SqlParameter("@ClassId", newStudent.Classid),
+                new SqlParameter("@StudentImage", newStudent.StdImage),
+                new SqlParameter("@Age", newStudent.Age)
+            };
+            try
+            {
+                return Convert.ToInt32(SQLHelper.GetSingleResult(sql, param));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Add student failed: " + ex.Message);
+            }
         }
         public List<Student> getAllStudents()
         {
-            return new List<Student>();
+            string sql = "SELECT StudentId, StudentName, Gender, Birthday, StudentIdNo, CardNo, PhoneNumber, StudentAddress, Student.ClassId, StudentImage, Age, ClassName " +
+                         "FROM Student INNER JOIN StudentClass ON Student.ClassId = StudentClass.ClassId";
+            List<Student> list = new List<Student>();
+            try
+            {
+                SqlDataReader objReader = SQLHelper.GetReader(sql);
+                while (objReader.Read())
+                {
+                    list.Add(new Student()
+                    {
+                        StdId = Convert.ToInt32(objReader["StudentId"]),
+                        StdName = objReader["StudentName"].ToString(),
+                        Gender = objReader["Gender"].ToString(),
+                        Birthday = Convert.ToDateTime(objReader["Birthday"]),
+                        idNo = objReader["StudentIdNo"].ToString(),
+                        CardNo = objReader["CardNo"].ToString(),
+                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"].ToString() : "",
+                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"].ToString() : "",
+                        Classid = Convert.ToInt32(objReader["ClassId"]),
+                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"].ToString() : "",
+                        Age = objReader["Age"] != DBNull.Value ? Convert.ToInt32(objReader["Age"]) : 0,
+                        ClassName = objReader["ClassName"].ToString()
+                    });
+                }
+                objReader.Close();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Get all students failed: " + ex.Message);
+            }
         }
-        public void updateSingleStdInfo(Student student) { }
+        public int updateSingleStdInfo(Student student) 
+        {
+            string sql = "UPDATE Student SET StudentName=@StudentName, Gender=@Gender, Birthday=@Birthday, StudentIdNo=@StudentIdNo, " +
+                         "CardNo=@CardNo, PhoneNumber=@PhoneNumber, StudentAddress=@StudentAddress, ClassId=@ClassId, StudentImage=@StudentImage, Age=@Age " +
+                         "WHERE StudentId=@StudentId";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@StudentName", student.StdName),
+                new SqlParameter("@Gender", student.Gender),
+                new SqlParameter("@Birthday", student.Birthday),
+                new SqlParameter("@StudentIdNo", student.idNo),
+                new SqlParameter("@CardNo", student.CardNo),
+                new SqlParameter("@PhoneNumber", student.PhoneNumber),
+                new SqlParameter("@StudentAddress", student.Address),
+                new SqlParameter("@ClassId", student.Classid),
+                new SqlParameter("@StudentImage", student.StdImage),
+                new SqlParameter("@Age", student.Age),
+                new SqlParameter("@StudentId", student.StdId)
+            };
+            try
+            {
+                return SQLHelper.Update(sql, param);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Update student failed: " + ex.Message);
+            }
+        }
         public List<Student> getStudentsByClass(string className)
         {
-            return new List<Student>();
+            string sql = "SELECT StudentId, StudentName, Gender, Birthday, StudentIdNo, CardNo, PhoneNumber, StudentAddress, Student.ClassId, StudentImage, Age, ClassName " +
+                         "FROM Student INNER JOIN StudentClass ON Student.ClassId = StudentClass.ClassId " +
+                         "WHERE ClassName=@ClassName";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@ClassName", className)
+            };
+            List<Student> list = new List<Student>();
+            try
+            {
+                SqlDataReader objReader = SQLHelper.GetReader(sql, param);
+                while (objReader.Read())
+                {
+                    list.Add(new Student()
+                    {
+                        StdId = Convert.ToInt32(objReader["StudentId"]),
+                        StdName = objReader["StudentName"].ToString(),
+                        Gender = objReader["Gender"].ToString(),
+                        Birthday = Convert.ToDateTime(objReader["Birthday"]),
+                        idNo = objReader["StudentIdNo"].ToString(),
+                        CardNo = objReader["CardNo"].ToString(),
+                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"].ToString() : "",
+                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"].ToString() : "",
+                        Classid = Convert.ToInt32(objReader["ClassId"]),
+                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"].ToString() : "",
+                        Age = objReader["Age"] != DBNull.Value ? Convert.ToInt32(objReader["Age"]) : 0,
+                        ClassName = objReader["ClassName"].ToString()
+                    });
+                }
+                objReader.Close();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Get students by class failed: " + ex.Message);
+            }
         }
         public Student getStudentByStdID(string stdId)
         {
-            return new Student();
+            string sql = "SELECT StudentId, StudentName, Gender, Birthday, StudentIdNo, CardNo, PhoneNumber, StudentAddress, Student.ClassId, StudentImage, Age, ClassName " +
+                         "FROM Student INNER JOIN StudentClass ON Student.ClassId = StudentClass.ClassId " +
+                         "WHERE StudentId=@StudentId";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@StudentId", stdId)
+            };
+            try
+            {
+                SqlDataReader objReader = SQLHelper.GetReader(sql, param);
+                Student student = null;
+                if (objReader.Read())
+                {
+                    student = new Student()
+                    {
+                        StdId = Convert.ToInt32(objReader["StudentId"]),
+                        StdName = objReader["StudentName"].ToString(),
+                        Gender = objReader["Gender"].ToString(),
+                        Birthday = Convert.ToDateTime(objReader["Birthday"]),
+                        idNo = objReader["StudentIdNo"].ToString(),
+                        CardNo = objReader["CardNo"].ToString(),
+                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"].ToString() : "",
+                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"].ToString() : "",
+                        Classid = Convert.ToInt32(objReader["ClassId"]),
+                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"].ToString() : "",
+                        Age = objReader["Age"] != DBNull.Value ? Convert.ToInt32(objReader["Age"]) : 0,
+                        ClassName = objReader["ClassName"].ToString()
+                    };
+                }
+                objReader.Close();
+                return student;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Get student by ID failed: " + ex.Message);
+            }
         }
-        public int deleteStdInfoByID(Student student)
+        public int deleteStdInfoByID(string stdId)
         {
-            return 1;
+            string sql = "DELETE FROM Student WHERE StudentId=@StudentId";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@StudentId", stdId)
+            };
+            try
+            {
+                return SQLHelper.Update(sql, param);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Delete student failed: " + ex.Message);
+            }
         }
     }
 }

@@ -126,7 +126,7 @@ namespace AMS.ahutit
             {
                 try 
                 {
-                    if (studentService.deleteStdInfoByID(student) == 1)
+                    if (studentService.deleteStdInfoByID(stdid) == 1)
                     {
                         //MessageBox.Show("删除学号为[" + stdid + "]学员的信息成功", "提示信息");
                         btnSearchByClass_Click(null, null);

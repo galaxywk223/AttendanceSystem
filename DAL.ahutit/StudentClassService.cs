@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models.ahutit;
+using System.Data.SqlClient;
 
 namespace DAL.ahutit
 {
@@ -11,12 +12,26 @@ namespace DAL.ahutit
     {
         public List<Class> GetAllClass()
         {
-            //此处应有数据库操作代码，此处省略
-            //模拟返回一些班级数据
-            return new List<Class>()
+            string sql = "SELECT ClassId, ClassName FROM StudentClass";
+            List<Class> list = new List<Class>();
+            try
             {
-
-            };
+                SqlDataReader objReader = SQLHelper.GetReader(sql);
+                while (objReader.Read())
+                {
+                    list.Add(new Class()
+                    {
+                        Id = Convert.ToInt32(objReader["ClassId"]),
+                        ClassName = objReader["ClassName"].ToString()
+                    });
+                }
+                objReader.Close();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Get class list failed: " + ex.Message);
+            }
         }
     }
 }

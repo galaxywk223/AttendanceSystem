@@ -8,6 +8,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models.ahutit\Models.ahutit.csproj" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+    <PackageReference Include="NPOI" Version="2.6.2" />
   </ItemGroup>
 
 </Project>
