@@ -20,5 +20,6 @@ namespace Models.ahutit
         public string StdImage { get; set; }
         public int StdId { get; set; }
         public string ClassName { get; set; }
+        public string? StudentPwd { get; set; }
     }
 }

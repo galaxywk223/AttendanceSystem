@@ -11,7 +11,8 @@ namespace AMS.ahutit
         {
             InitializeComponent();
             //显示当前用户
-            this.tssLabUserName.Text = Program.currentAdmin.AdminName;
+            this.tssLabUserName.Text = Program.currentAdmin != null ? Program.currentAdmin.AdminName : "管理员";
+            btnAtt.Visible = false; // 管理员不需要考勤打卡
         }
 
         private void ϵͳToolStripMenuItem_Click(object sender, EventArgs e)
@@ -110,7 +111,17 @@ namespace AMS.ahutit
             DialogResult result = frmLogin.ShowDialog();
             if (result == DialogResult.OK)
             {
-                this.tssLabUserName.Text = Program.currentAdmin.AdminName;
+                if (Program.currentAdmin != null)
+                {
+                    this.tssLabUserName.Text = Program.currentAdmin.AdminName;
+                }
+                else if (Program.currentStudent != null)
+                {
+                    // 切到学员端
+                    FrmStudentMain frmStudentMain = new FrmStudentMain();
+                    frmStudentMain.Show();
+                    this.Close();
+                }
             }
         }
 

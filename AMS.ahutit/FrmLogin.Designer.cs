@@ -35,6 +35,8 @@
             tbxPsw = new TextBox();
             btnLogin = new Button();
             btnClose = new Button();
+            lblRole = new Label();
+            cmbRole = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -83,12 +85,32 @@
             tbxPsw.Text = "123456";
             tbxPsw.UseSystemPasswordChar = true;
             // 
+            // lblRole
+            // 
+            lblRole.AutoSize = true;
+            lblRole.Location = new Point(518, 253);
+            lblRole.Name = "lblRole";
+            lblRole.Size = new Size(64, 24);
+            lblRole.TabIndex = 4;
+            lblRole.Text = "身份：";
+            // 
+            // cmbRole
+            // 
+            cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbRole.FormattingEnabled = true;
+            cmbRole.Items.AddRange(new object[] { "管理员", "学员" });
+            cmbRole.Location = new Point(601, 250);
+            cmbRole.Name = "cmbRole";
+            cmbRole.Size = new Size(346, 32);
+            cmbRole.TabIndex = 2;
+            cmbRole.SelectedIndexChanged += cmbRole_SelectedIndexChanged;
+            // 
             // btnLogin
             // 
             btnLogin.Location = new Point(565, 339);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(112, 34);
-            btnLogin.TabIndex = 2;
+            btnLogin.TabIndex = 3;
             btnLogin.Text = "登录";
             btnLogin.UseVisualStyleBackColor = true;
             btnLogin.Click += btnLogin_Click;
@@ -98,7 +120,7 @@
             btnClose.Location = new Point(789, 339);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(112, 34);
-            btnClose.TabIndex = 3;
+            btnClose.TabIndex = 4;
             btnClose.Text = "退出";
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += btnClose_Click;
@@ -107,6 +129,8 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1026, 494);
+            Controls.Add(cmbRole);
+            Controls.Add(lblRole);
             Controls.Add(btnClose);
             Controls.Add(btnLogin);
             Controls.Add(tbxPsw);
@@ -134,5 +158,7 @@
         private TextBox tbxPsw;
         private Button btnLogin;
         private Button btnClose;
+        private Label lblRole;
+        private ComboBox cmbRole;
     }
 }

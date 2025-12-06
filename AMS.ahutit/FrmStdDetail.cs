@@ -35,8 +35,15 @@ namespace AMS.ahutit
             this.txtPhone.Text = student.PhoneNumber;
             txtAttNo.Text = student.CardNo;
             txtClassName.Text = student.ClassName;
-            //string fileNameDes = AppDomain.CurrentDomain.BaseDirectory + "/image/" + NewImageName;
-            picStdImage.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "/image/" + student.StdImage);
+            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "image", student.StdImage ?? string.Empty);
+            if (File.Exists(imagePath))
+            {
+                picStdImage.Image = Image.FromFile(imagePath);
+            }
+            else
+            {
+                picStdImage.Image = null;
+            }
 
 
         }

@@ -211,6 +211,56 @@ namespace DAL.ahutit
                 throw new Exception("Get student by ID failed: " + ex.Message);
             }
         }
+
+        public Student? GetStudentByCardNo(string cardNo)
+        {
+            string sql = "SELECT StudentId, StudentName, Gender, Birthday, StudentIdNo, CardNo, PhoneNumber, StudentAddress, Student.ClassId, StudentImage, Age, ClassName " +
+                         "FROM Student INNER JOIN StudentClass ON Student.ClassId = StudentClass.ClassId " +
+                         "WHERE CardNo=@CardNo";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@CardNo", cardNo)
+            };
+            try
+            {
+                SqlDataReader objReader = SQLHelper.GetReader(sql, param);
+                Student? student = null;
+                if (objReader.Read())
+                {
+                    student = new Student()
+                    {
+                        StdId = Convert.ToInt32(objReader["StudentId"]),
+                        StdName = objReader["StudentName"].ToString(),
+                        Gender = objReader["Gender"].ToString(),
+                        Birthday = Convert.ToDateTime(objReader["Birthday"]),
+                        idNo = objReader["StudentIdNo"].ToString(),
+                        CardNo = objReader["CardNo"].ToString(),
+                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"].ToString() : "",
+                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"].ToString() : "",
+                        Classid = Convert.ToInt32(objReader["ClassId"]),
+                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"].ToString() : "",
+                        Age = objReader["Age"] != DBNull.Value ? Convert.ToInt32(objReader["Age"]) : 0,
+                        ClassName = objReader["ClassName"].ToString()
+                    };
+                }
+                objReader.Close();
+                return student;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Get student by card failed: " + ex.Message);
+            }
+        }
+
+        public Student? StudentLogin(string cardNo, string password)
+        {
+            // 默认密码：123456；后续如增加学生密码字段可在此扩展
+            if (!string.Equals(password, "123456"))
+            {
+                return null;
+            }
+            return GetStudentByCardNo(cardNo);
+        }
         public int deleteStdInfoByID(string stdId)
         {
             string sql = "DELETE FROM Student WHERE StudentId=@StudentId";
