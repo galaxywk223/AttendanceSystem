@@ -18,14 +18,16 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 
 namespace AMS.ahutit
 {
     public partial class FrmAddStd : Form
     {
-        private VideoCapture _capture;
+        private VideoCapture? _capture;
         private bool _isRunning = false;
+        private readonly object _captureLock = new object();
 
         //创建数据访问对象
         private StudentClassService stdClassService = new StudentClassService();
@@ -58,6 +60,7 @@ namespace AMS.ahutit
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            DisposeCapture();
             this.Close();
         }
 
@@ -77,10 +80,7 @@ namespace AMS.ahutit
         {
             pcbView.Image = null;
             _isFromCamera = false;
-            if (_capture != null)
-            {
-                _capture.Dispose();
-            }
+            DisposeCapture();
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
@@ -183,7 +183,7 @@ namespace AMS.ahutit
                     string fileNameDes = AppDomain.CurrentDomain.BaseDirectory + "/image/" + NewImageName;
                     newStudent.StdImage = NewImageName;
                     try { pcbView.Image.Save(fileNameDes); }
-                    catch (Exception ee)
+                    catch (Exception)
                     {
                         MessageBox.Show("文件保存出错！", "错误");
                     }
@@ -256,24 +256,40 @@ namespace AMS.ahutit
             //}
         }
 
-        private void ProcessFrame(object sender, EventArgs e)
+        private void ProcessFrame(object? sender, EventArgs e)
         {
             try
             {
-                Mat frame = new Mat();
-                _capture.Retrieve(frame);
+                if (!_isRunning)
+                {
+                    return;
+                }
 
-                // 转换为灰度图像（可选处理）
-                Mat grayFrame = new Mat();
-                CvInvoke.CvtColor(frame, grayFrame, Emgu.CV.CvEnum.ColorConversion.Bgr2Gray);
+                Mat displayFrame;
+                using (Mat frame = new Mat())
+                {
+                    lock (_captureLock)
+                    {
+                        if (_capture == null || _capture.Ptr == IntPtr.Zero)
+                        {
+                            return;
+                        }
+                        _capture.Retrieve(frame);
+                    }
+                    displayFrame = frame.Clone();
+                }
 
                 // 跨线程更新UI
-                this.Invoke((MethodInvoker)delegate
+                this.BeginInvoke((MethodInvoker)delegate
                 {
-                    //imageBox1.Image = grayFrame; // 显示灰度图像
-                    //若要显示原图：
-                    imageBox1.Image = frame;
+                    imageBox1.Image?.Dispose();
+                    imageBox1.Image = displayFrame;
                 });
+            }
+            catch (AccessViolationException)
+            {
+                // Camera stream may have been torn down; clean up to avoid crashing
+                DisposeCapture();
             }
             catch (Exception ex)
             {
@@ -283,50 +299,100 @@ namespace AMS.ahutit
 
         private void btnTurnOn_Click(object sender, EventArgs e)
         {
-            if (_capture == null)
+            lock (_captureLock)
             {
-                _capture = new VideoCapture(0); // 0表示默认摄像头
-                _capture.ImageGrabbed += ProcessFrame;
-            }
+                if (_capture == null || _capture.Ptr == IntPtr.Zero)
+                {
+                    _capture = new VideoCapture(0); // 0表示默认摄像头
+                    _capture.ImageGrabbed += ProcessFrame;
+                }
 
-            if (!_isRunning)
-            {
-                _capture.Start();
-                _isRunning = true;
-                //btnStart.Text = "停止";
-            }
-            else
-            {
-                _capture.Stop();
-                _isRunning = false;
-                //btnStart.Text = "开始";
+                if (!_isRunning)
+                {
+                    _capture.Start();
+                    _isRunning = true;
+                }
+                else
+                {
+                    _capture.Stop();
+                    _isRunning = false;
+                }
             }
         }
 
         private void btnGetPic_Click(object sender, EventArgs e)
         {
-            if (_capture != null&&_isRunning==true)
+            lock (_captureLock)
             {
-                //摄像头取照
-                _isFromCamera = true;
-                Mat mat = _capture.QueryFrame();
-                // 将Emgu CV的Image<Bgr, byte>转换为Bitmap并显示在PictureBox中
-                Bitmap bitmap = mat.ToBitmap();
-                pcbView.Image = bitmap; // 这里假设你的PictureBox的名字是pictureBoxDisplay                
-                mat.Dispose();
-                //_capture.Dispose(); // 释放资源
+                if (_capture != null && _isRunning == true && _capture.Ptr != IntPtr.Zero)
+                {
+                    //摄像头取照
+                    _isFromCamera = true;
+                    using Mat mat = _capture.QueryFrame();
+                    // 将Emgu CV的Image<Bgr, byte>转换为Bitmap并显示在PictureBox中
+                    Bitmap bitmap = mat.ToBitmap();
+                    pcbView.Image = bitmap; // 这里假设你的PictureBox的名字是pictureBoxDisplay                
+                }
             }
             return;
         }
 
         private void btnTurnOff_Click(object sender, EventArgs e)
         {
-            if (_capture != null)
-            {
-                _capture.Stop(); // 停止捕获（如果还没有停止的话）
-                _isRunning = false;
-            }
+            DisposeCapture();
             return;
+        }
+
+        private void txtID_TextChanged(object sender, EventArgs e)
+        {
+            DateTime? birth = TryParseBirthdayFromId(txtID.Text.Trim());
+            if (birth.HasValue)
+            {
+                dtpBirthday.Value = birth.Value;
+            }
+        }
+
+        private static DateTime? TryParseBirthdayFromId(string idNo)
+        {
+            if (idNo.Length >= 14)
+            {
+                string birthStr = idNo.Substring(6, 8);
+                if (DateTime.TryParseExact(birthStr, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime birth))
+                {
+                    return birth;
+                }
+            }
+            return null;
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            DisposeCapture();
+            base.OnFormClosing(e);
+        }
+
+        private void DisposeCapture()
+        {
+            lock (_captureLock)
+            {
+                if (_capture != null)
+                {
+                    try
+                    {
+                        _capture.ImageGrabbed -= ProcessFrame;
+                        if (_isRunning)
+                        {
+                            _capture.Stop();
+                        }
+                        _capture.Dispose();
+                    }
+                    finally
+                    {
+                        _capture = null;
+                        _isRunning = false;
+                    }
+                }
+            }
         }
     }
 }

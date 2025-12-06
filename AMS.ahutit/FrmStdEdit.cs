@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Globalization;
 namespace AMS.ahutit
 {
     public partial class FrmStdEdit : Form
@@ -52,6 +53,28 @@ namespace AMS.ahutit
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtIDNo_TextChanged(object sender, EventArgs e)
+        {
+            DateTime? birth = TryParseBirthdayFromId(txtIDNo.Text.Trim());
+            if (birth.HasValue)
+            {
+                dtpBirthday.Value = birth.Value;
+            }
+        }
+
+        private static DateTime? TryParseBirthdayFromId(string idNo)
+        {
+            if (idNo.Length >= 14)
+            {
+                string birthStr = idNo.Substring(6, 8);
+                if (DateTime.TryParseExact(birthStr, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime birth))
+                {
+                    return birth;
+                }
+            }
+            return null;
         }
 
         private void btnChangeImage_Click(object sender, EventArgs e)

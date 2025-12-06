@@ -72,6 +72,18 @@ namespace AMS.ahutit
             openForm(frmStdManage);
         }
 
+        private void btnClassManage_Click(object sender, EventArgs e)
+        {
+            closePreForm();
+            FrmClassManage frmClassManage = new FrmClassManage();
+            openForm(frmClassManage);
+        }
+
+        private void tsmiClassManage_Click(object sender, EventArgs e)
+        {
+            btnClassManage_Click(sender, e);
+        }
+
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult result = MessageBox.Show("确认退出吗？", "退出确认", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);

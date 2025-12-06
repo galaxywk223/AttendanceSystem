@@ -35,6 +35,7 @@
             tsmiExit = new ToolStripMenuItem();
             tsmiStudentMan = new ToolStripMenuItem();
             tsmiAdd = new ToolStripMenuItem();
+            tsmiClassManage = new ToolStripMenuItem();
             tsmiImport = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             tsmiView = new ToolStripMenuItem();
@@ -51,6 +52,7 @@
             btnScore = new Button();
             btnPSW = new Button();
             btnManange = new Button();
+            btnClassManage = new Button();
             btnAdd = new Button();
             monthCalendar1 = new MonthCalendar();
             tsmiMain.SuspendLayout();
@@ -96,7 +98,7 @@
             // 
             // tsmiStudentMan
             // 
-            tsmiStudentMan.DropDownItems.AddRange(new ToolStripItem[] { tsmiAdd, tsmiImport, toolStripSeparator1, tsmiView });
+            tsmiStudentMan.DropDownItems.AddRange(new ToolStripItem[] { tsmiAdd, tsmiClassManage, tsmiImport, toolStripSeparator1, tsmiView });
             tsmiStudentMan.Name = "tsmiStudentMan";
             tsmiStudentMan.Size = new Size(128, 28);
             tsmiStudentMan.Text = "学员管理(&M)";
@@ -107,6 +109,13 @@
             tsmiAdd.Size = new Size(182, 34);
             tsmiAdd.Text = "添加学员";
             tsmiAdd.Click += btnAdd_Click;
+            // 
+            // tsmiClassManage
+            // 
+            tsmiClassManage.Name = "tsmiClassManage";
+            tsmiClassManage.Size = new Size(182, 34);
+            tsmiClassManage.Text = "班级管理";
+            tsmiClassManage.Click += btnClassManage_Click;
             // 
             // tsmiImport
             // 
@@ -169,6 +178,7 @@
             splitContainer1.Panel1.Controls.Add(btnExport);
             splitContainer1.Panel1.Controls.Add(btnScore);
             splitContainer1.Panel1.Controls.Add(btnPSW);
+            splitContainer1.Panel1.Controls.Add(btnClassManage);
             splitContainer1.Panel1.Controls.Add(btnManange);
             splitContainer1.Panel1.Controls.Add(btnAdd);
             splitContainer1.Panel1.Controls.Add(monthCalendar1);
@@ -258,6 +268,16 @@
             btnManange.UseVisualStyleBackColor = true;
             btnManange.Click += btnManange_Click;
             // 
+            // btnClassManage
+            // 
+            btnClassManage.Location = new Point(16, 501);
+            btnClassManage.Name = "btnClassManage";
+            btnClassManage.Size = new Size(119, 55);
+            btnClassManage.TabIndex = 1;
+            btnClassManage.Text = "班级管理";
+            btnClassManage.UseVisualStyleBackColor = true;
+            btnClassManage.Click += btnClassManage_Click;
+            // 
             // btnAdd
             // 
             btnAdd.Location = new Point(16, 265);
@@ -322,8 +342,10 @@
         private Button btnScore;
         private Button btnPSW;
         private Button btnManange;
+        private Button btnClassManage;
         private Button btnAdd;
         private Button btnChangeUser;
+        private ToolStripMenuItem tsmiClassManage;
         private ToolStripStatusLabel tssLabUserName;
     }
 }

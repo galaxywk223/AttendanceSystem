@@ -17,21 +17,13 @@ namespace DAL.ahutit
         {
             try
             {
-                IWorkbook workbook;
                 string fileExt = Path.GetExtension(fileName).ToLower();
-                if (fileExt == ".xlsx")
+                IWorkbook workbook = fileExt switch
                 {
-                    workbook = new XSSFWorkbook();
-                }
-                else if (fileExt == ".xls")
-                {
-                    workbook = new HSSFWorkbook();
-                }
-                else
-                {
-                    workbook = null;
-                    return false;
-                }
+                    ".xlsx" => new XSSFWorkbook(),
+                    ".xls" => new HSSFWorkbook(),
+                    _ => throw new ArgumentException("不支持的文件扩展名", nameof(fileName))
+                };
 
                 ISheet sheet = workbook.CreateSheet("Sheet1");
                 IRow headerRow = sheet.CreateRow(0);

@@ -208,6 +208,7 @@
             txtID.Name = "txtID";
             txtID.Size = new Size(672, 30);
             txtID.TabIndex = 1;
+            txtID.TextChanged += txtID_TextChanged;
             // 
             // txtAttNo
             // 

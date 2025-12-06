@@ -143,16 +143,22 @@ namespace AMS.ahutit
     #region 实现排序
     class NameDESC : IComparer<Student>
     {
-        public int Compare(Student std1, Student std2)
+        public int Compare(Student? std1, Student? std2)
         {
+            if (std1 == null && std2 == null) return 0;
+            if (std1 == null) return -1;
+            if (std2 == null) return 1;
             return std2.StdName.CompareTo(std1.StdName);
         }
     }
 
     class StdIDDESC : IComparer<Student>
     {
-        public int Compare(Student std1, Student std2)
+        public int Compare(Student? std1, Student? std2)
         {
+            if (std1 == null && std2 == null) return 0;
+            if (std1 == null) return -1;
+            if (std2 == null) return 1;
             return std2.StdId.CompareTo(std1.StdId);
         }
     }
