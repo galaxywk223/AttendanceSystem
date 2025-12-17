@@ -38,12 +38,12 @@
             btnEdit = new Button();
             btnDelete = new Button();
             groupBox2 = new GroupBox();
-            txtStdID = new TextBox();
+            txtCardNo = new TextBox();
             btnSearchByNum = new Button();
             label1 = new Label();
             btnPrint = new Button();
             dgStd = new DataGridView();
-            StdId = new DataGridViewTextBoxColumn();
+            CardNo = new DataGridViewTextBoxColumn();
             StdName = new DataGridViewTextBoxColumn();
             Gender = new DataGridViewTextBoxColumn();
             PhoneNumber = new DataGridViewTextBoxColumn();
@@ -76,7 +76,7 @@
             btnSearchByNumDesc.Name = "btnSearchByNumDesc";
             btnSearchByNumDesc.Size = new Size(112, 34);
             btnSearchByNumDesc.TabIndex = 7;
-            btnSearchByNumDesc.Text = "学号降序";
+            btnSearchByNumDesc.Text = "卡号降序";
             btnSearchByNumDesc.UseVisualStyleBackColor = true;
             btnSearchByNumDesc.Click += btnSearchByNumDesc_Click;
             // 
@@ -139,7 +139,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(txtStdID);
+            groupBox2.Controls.Add(txtCardNo);
             groupBox2.Controls.Add(btnSearchByNum);
             groupBox2.Controls.Add(label1);
             groupBox2.Location = new Point(49, 110);
@@ -147,14 +147,14 @@
             groupBox2.Size = new Size(1029, 88);
             groupBox2.TabIndex = 0;
             groupBox2.TabStop = false;
-            groupBox2.Text = "[按照学号查询]";
+            groupBox2.Text = "[按照考勤卡号查询]";
             // 
-            // txtStdID
+            // txtCardNo
             // 
-            txtStdID.Location = new Point(93, 46);
-            txtStdID.Name = "txtStdID";
-            txtStdID.Size = new Size(220, 30);
-            txtStdID.TabIndex = 8;
+            txtCardNo.Location = new Point(93, 46);
+            txtCardNo.Name = "txtCardNo";
+            txtCardNo.Size = new Size(220, 30);
+            txtCardNo.TabIndex = 8;
             // 
             // btnSearchByNum
             // 
@@ -173,7 +173,7 @@
             label1.Name = "label1";
             label1.Size = new Size(64, 24);
             label1.TabIndex = 5;
-            label1.Text = "学号：";
+            label1.Text = "卡号：";
             // 
             // btnPrint
             // 
@@ -195,7 +195,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dgStd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgStd.ColumnHeadersHeight = 50;
-            dgStd.Columns.AddRange(new DataGridViewColumn[] { StdId, StdName, Gender, PhoneNumber, Birthday, idNo, ClassName });
+            dgStd.Columns.AddRange(new DataGridViewColumn[] { CardNo, StdName, Gender, PhoneNumber, Birthday, idNo, ClassName });
             dgStd.Location = new Point(49, 204);
             dgStd.Name = "dgStd";
             dgStd.RowHeadersWidth = 62;
@@ -203,14 +203,14 @@
             dgStd.TabIndex = 8;
             dgStd.CellDoubleClick += dgStd_CellDoubleClick;
             // 
-            // StdId
+            // CardNo
             // 
-            StdId.DataPropertyName = "StdId";
-            StdId.HeaderText = "学号";
-            StdId.MinimumWidth = 8;
-            StdId.Name = "StdId";
-            StdId.ReadOnly = true;
-            StdId.Width = 150;
+            CardNo.DataPropertyName = "CardNo";
+            CardNo.HeaderText = "考勤卡号";
+            CardNo.MinimumWidth = 8;
+            CardNo.Name = "CardNo";
+            CardNo.ReadOnly = true;
+            CardNo.Width = 150;
             // 
             // StdName
             // 
@@ -284,7 +284,7 @@
             Controls.Add(btnClose);
             Controls.Add(btnEdit);
             Name = "FrmStdManage";
-            Text = "[学员信息管理]";
+            Text = "学员信息管理";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
@@ -301,20 +301,16 @@
         private Button btnSearchByNumDesc;
         private Button btnSearchByNameDesc;
         private Button btnSearchByClass;
-        private Button btnSearch;
         private Button btnEdit;
         private Button btnDelete;
         private GroupBox groupBox2;
-        private Button button5;
-        private Button button6;
         private Button btnSearchByNum;
-        private ComboBox comboBox1;
         private Label label1;
-        private TextBox txtStdID;
+        private TextBox txtCardNo;
         private Button btnPrint;
         private DataGridView dgStd;
         private Button btnClose;
-        private DataGridViewTextBoxColumn StdId;
+        private DataGridViewTextBoxColumn CardNo;
         private DataGridViewTextBoxColumn StdName;
         private DataGridViewTextBoxColumn Gender;
         private DataGridViewTextBoxColumn PhoneNumber;

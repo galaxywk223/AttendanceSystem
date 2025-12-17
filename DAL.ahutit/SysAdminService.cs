@@ -10,7 +10,7 @@ namespace DAL.ahutit
 {
     public class SysAdminService
     {
-        public SysAdmin AdminLogin(SysAdmin objAdmin)
+        public SysAdmin? AdminLogin(SysAdmin objAdmin)
         {
             string sql = "SELECT AdminName, LoginPwd FROM SysAdmin WHERE LoginId=@LoginId AND LoginPwd=@Pwd";
             SqlParameter[] param = new SqlParameter[]
@@ -24,8 +24,8 @@ namespace DAL.ahutit
                 SqlDataReader objReader = SQLHelper.GetReader(sql, param);
                 if (objReader.Read())
                 {
-                    objAdmin.AdminName = objReader["AdminName"].ToString();
-                    objAdmin.Pwd = objReader["LoginPwd"].ToString(); // Map DB LoginPwd to Model Pwd
+                    objAdmin.AdminName = objReader["AdminName"]?.ToString() ?? string.Empty;
+                    objAdmin.Pwd = objReader["LoginPwd"]?.ToString() ?? string.Empty; // Map DB LoginPwd to Model Pwd
                     objReader.Close();
                     return objAdmin;
                 }

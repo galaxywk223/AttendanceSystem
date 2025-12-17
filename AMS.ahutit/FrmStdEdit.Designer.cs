@@ -31,15 +31,15 @@
             btnClose = new Button();
             txtAddress = new TextBox();
             txtPhone = new TextBox();
-            txtIDNo = new TextBox();
             txtAttNo = new TextBox();
+            txtIDNo = new TextBox();
             txtName = new TextBox();
             label8 = new Label();
             label3 = new Label();
             label7 = new Label();
             label2 = new Label();
-            label5 = new Label();
             label6 = new Label();
+            label5 = new Label();
             label4 = new Label();
             label1 = new Label();
             groupBox1 = new GroupBox();
@@ -51,6 +51,9 @@
             label9 = new Label();
             picStdImage = new PictureBox();
             btnChangeImage = new Button();
+            btnTurnOn = new Button();
+            btnGetPic = new Button();
+            btnTurnOff = new Button();
             btnConfirm = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picStdImage).BeginInit();
@@ -80,6 +83,13 @@
             txtPhone.Size = new Size(283, 30);
             txtPhone.TabIndex = 1;
             // 
+            // txtAttNo
+            // 
+            txtAttNo.Location = new Point(129, 319);
+            txtAttNo.Name = "txtAttNo";
+            txtAttNo.Size = new Size(212, 30);
+            txtAttNo.TabIndex = 1;
+            // 
             // txtIDNo
             // 
             txtIDNo.Location = new Point(492, 231);
@@ -87,13 +97,6 @@
             txtIDNo.Size = new Size(254, 30);
             txtIDNo.TabIndex = 1;
             txtIDNo.TextChanged += txtIDNo_TextChanged;
-            // 
-            // txtAttNo
-            // 
-            txtAttNo.Location = new Point(129, 319);
-            txtAttNo.Name = "txtAttNo";
-            txtAttNo.Size = new Size(212, 30);
-            txtAttNo.TabIndex = 1;
             // 
             // txtName
             // 
@@ -138,15 +141,6 @@
             label2.TabIndex = 0;
             label2.Text = "性别：";
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(374, 234);
-            label5.Name = "label5";
-            label5.Size = new Size(118, 24);
-            label5.TabIndex = 0;
-            label5.Text = "身份证号码：";
-            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -155,6 +149,15 @@
             label6.Size = new Size(100, 24);
             label6.TabIndex = 0;
             label6.Text = "考勤卡号：";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(374, 234);
+            label5.Name = "label5";
+            label5.Size = new Size(118, 24);
+            label5.TabIndex = 0;
+            label5.Text = "身份证号码：";
             // 
             // label4
             // 
@@ -182,8 +185,8 @@
             groupBox1.Controls.Add(rdbMale);
             groupBox1.Controls.Add(txtAddress);
             groupBox1.Controls.Add(txtPhone);
-            groupBox1.Controls.Add(txtIDNo);
             groupBox1.Controls.Add(txtAttNo);
+            groupBox1.Controls.Add(txtIDNo);
             groupBox1.Controls.Add(txtStdID);
             groupBox1.Controls.Add(txtName);
             groupBox1.Controls.Add(label8);
@@ -191,8 +194,8 @@
             groupBox1.Controls.Add(label9);
             groupBox1.Controls.Add(label7);
             groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label6);
+            groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(420, 12);
@@ -248,6 +251,7 @@
             txtStdID.Name = "txtStdID";
             txtStdID.Size = new Size(252, 30);
             txtStdID.TabIndex = 1;
+            txtStdID.Visible = false;
             // 
             // label9
             // 
@@ -257,6 +261,7 @@
             label9.Size = new Size(64, 24);
             label9.TabIndex = 0;
             label9.Text = "学号：";
+            label9.Visible = false;
             // 
             // picStdImage
             // 
@@ -269,13 +274,43 @@
             // 
             // btnChangeImage
             // 
-            btnChangeImage.Location = new Point(110, 523);
+            btnChangeImage.Location = new Point(21, 560);
             btnChangeImage.Name = "btnChangeImage";
-            btnChangeImage.Size = new Size(199, 64);
+            btnChangeImage.Size = new Size(350, 40);
             btnChangeImage.TabIndex = 8;
-            btnChangeImage.Text = "更换图片";
+            btnChangeImage.Text = "选择本地图片";
             btnChangeImage.UseVisualStyleBackColor = true;
             btnChangeImage.Click += btnChangeImage_Click;
+            // 
+            // btnTurnOn
+            // 
+            btnTurnOn.Location = new Point(20, 510);
+            btnTurnOn.Name = "btnTurnOn";
+            btnTurnOn.Size = new Size(110, 40);
+            btnTurnOn.TabIndex = 8;
+            btnTurnOn.Text = "启动摄像头";
+            btnTurnOn.UseVisualStyleBackColor = true;
+            btnTurnOn.Click += btnTurnOn_Click;
+            // 
+            // btnGetPic
+            // 
+            btnGetPic.Location = new Point(140, 510);
+            btnGetPic.Name = "btnGetPic";
+            btnGetPic.Size = new Size(110, 40);
+            btnGetPic.TabIndex = 8;
+            btnGetPic.Text = "拍照";
+            btnGetPic.UseVisualStyleBackColor = true;
+            btnGetPic.Click += btnGetPic_Click;
+            // 
+            // btnTurnOff
+            // 
+            btnTurnOff.Location = new Point(260, 510);
+            btnTurnOff.Name = "btnTurnOff";
+            btnTurnOff.Size = new Size(110, 40);
+            btnTurnOff.TabIndex = 8;
+            btnTurnOff.Text = "关闭摄像头";
+            btnTurnOff.UseVisualStyleBackColor = true;
+            btnTurnOff.Click += btnTurnOff_Click;
             // 
             // btnConfirm
             // 
@@ -294,11 +329,14 @@
             ClientSize = new Size(1263, 638);
             Controls.Add(btnConfirm);
             Controls.Add(btnChangeImage);
+            Controls.Add(btnTurnOn);
+            Controls.Add(btnGetPic);
+            Controls.Add(btnTurnOff);
             Controls.Add(btnClose);
             Controls.Add(groupBox1);
             Controls.Add(picStdImage);
             Name = "FrmStdEdit";
-            Text = "FrmStdEdit";
+            Text = "学院信息编辑";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)picStdImage).EndInit();
@@ -312,6 +350,7 @@
         private TextBox txtPhone;
         private TextBox txtIDNo;
         private TextBox txtAttNo;
+
         private TextBox txtName;
         private Label label8;
         private Label label3;
@@ -319,6 +358,7 @@
         private Label label2;
         private Label label5;
         private Label label6;
+
         private Label label4;
         private Label label1;
         private GroupBox groupBox1;
@@ -330,6 +370,9 @@
         private ComboBox cmbClass;
         private DateTimePicker dtpBirthday;
         private Button btnChangeImage;
+        private Button btnTurnOn;
+        private Button btnGetPic;
+        private Button btnTurnOff;
         private Button btnConfirm;
     }
 }

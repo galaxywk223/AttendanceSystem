@@ -63,10 +63,10 @@ namespace DAL.ahutit
                     list.Add(new StudentExt()
                     {
                         StdId = Convert.ToInt32(objReader["StudentId"]),
-                        StdName = objReader["StudentName"].ToString(),
-                        Gender = objReader["Gender"].ToString(),
-                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"].ToString() : "",
-                        ClassName = objReader["ClassName"].ToString(),
+                        StdName = objReader["StudentName"]?.ToString() ?? string.Empty,
+                        Gender = objReader["Gender"]?.ToString() ?? string.Empty,
+                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"]?.ToString() ?? string.Empty : string.Empty,
+                        ClassName = objReader["ClassName"]?.ToString() ?? string.Empty,
                         AttendanceCount = attCount,
                         TotalSessions = totalSessions,
                         AttendanceScore = score
@@ -115,10 +115,10 @@ namespace DAL.ahutit
                     studentScore = new StudentExt()
                     {
                         StdId = Convert.ToInt32(objReader["StudentId"]),
-                        StdName = objReader["StudentName"].ToString(),
-                        Gender = objReader["Gender"].ToString(),
-                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"].ToString() : "",
-                        ClassName = objReader["ClassName"].ToString(),
+                        StdName = objReader["StudentName"]?.ToString() ?? string.Empty,
+                        Gender = objReader["Gender"]?.ToString() ?? string.Empty,
+                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"]?.ToString() ?? string.Empty : string.Empty,
+                        ClassName = objReader["ClassName"]?.ToString() ?? string.Empty,
                         AttendanceCount = attCount,
                         TotalSessions = totalSessions,
                         AttendanceScore = score

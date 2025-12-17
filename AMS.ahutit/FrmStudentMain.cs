@@ -30,7 +30,7 @@ namespace AMS.ahutit
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            Program.currentStudent = null;
+            Program.IsLogout = true;
             this.Close();
         }
 

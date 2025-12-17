@@ -10,27 +10,42 @@ namespace AMS.ahutit
         {
             ApplicationConfiguration.Initialize();
 
-            FrmLogin frmLogin = new FrmLogin();
-            DialogResult result = frmLogin.ShowDialog();
+            while (true)
+            {
+                FrmLogin frmLogin = new FrmLogin();
+                DialogResult result = frmLogin.ShowDialog();
 
-            if (result == DialogResult.OK)
-            {
-                if (currentStudent != null)
+                if (result == DialogResult.OK)
                 {
-                    Application.Run(new FrmStudentMain());
+                    IsLogout = false; // Reset flag
+                    if (currentStudent != null)
+                    {
+                        Application.Run(new FrmStudentMain());
+                    }
+                    else if (currentAdmin != null)
+                    {
+                        Application.Run(new FrmMain());
+                    }
+
+                    if (!IsLogout)
+                    {
+                        break; // If form closed not due to logout, assume exit
+                    }
+                    // Else loop continues to show login
+                    currentStudent = null;
+                    currentAdmin = null;
                 }
-                else if (currentAdmin != null)
+                else
                 {
-                    Application.Run(new FrmMain());
+                    break;
                 }
             }
-            else
-            {
-                Application.Exit();
-            }
+            Application.Exit();
         }
 
-        public static SysAdmin currentAdmin = null;
+        public static bool IsLogout = false;
+
+        public static SysAdmin? currentAdmin = null;
         public static Student? currentStudent = null;
     }
 }

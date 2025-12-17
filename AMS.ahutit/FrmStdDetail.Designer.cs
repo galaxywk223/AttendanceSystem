@@ -237,7 +237,7 @@
             MaximizeBox = false;
             Name = "FrmStdDetail";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "[学员详细信息]";
+            Text = "学员详细信息";
             Load += FrmStdDetail_Load;
             ((System.ComponentModel.ISupportInitialize)picStdImage).EndInit();
             groupBox1.ResumeLayout(false);

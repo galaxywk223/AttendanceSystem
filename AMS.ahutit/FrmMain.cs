@@ -101,34 +101,14 @@ namespace AMS.ahutit
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("确认退出吗？", "退出确认", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (result == DialogResult.OK)
-            {
-                this.Close();
-            }
+            this.Close();
         }
 
         private void btnChangeUser_Click(object sender, EventArgs e)
         {
-            //创建登录窗体
-            FrmLogin frmLogin = new FrmLogin();
-            frmLogin.Text = "[切换账号]";
-            DialogResult result = frmLogin.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                if (Program.currentAdmin != null)
-                {
-                    this.tssLabUserName.Text = Program.currentAdmin.AdminName;
-                }
-                else if (Program.currentStudent != null)
-                {
-                    // 切到学员端
-                    FrmStudentMain frmStudentMain = new FrmStudentMain();
-                    frmStudentMain.Show();
-                    isSwitching = true; // Suppress exit confirmation
-                    this.Close();
-                }
-            }
+            Program.IsLogout = true;
+            isSwitching = true;
+            this.Close();
         }
 
         private void btnPSW_Click(object sender, EventArgs e)
@@ -143,6 +123,11 @@ namespace AMS.ahutit
             FrmScoreVIew frmScoreVIew = new FrmScoreVIew();
             //封装方法
             openForm(frmScoreVIew);
+        }
+
+        private void tsmiImport_Click(object sender, EventArgs e)
+        {
+             MessageBox.Show("批量导入功能暂未开放！", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -185,7 +170,7 @@ namespace AMS.ahutit
                     // Start Session
                     if (MessageBox.Show("确定要开始新的考勤吗？\n开始后学员端可以进行签到。", "发起考勤", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        attService.StartSession(Program.currentAdmin.AdminName);
+                        attService.StartSession(Program.currentAdmin?.AdminName ?? "Unknown");
                         btnAtt.Text = "结束考勤";
                         btnAtt.BackColor = Color.LightCoral; 
                         MessageBox.Show("考勤已开始！", "提示");

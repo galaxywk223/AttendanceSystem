@@ -10,8 +10,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Globalization;
+using Emgu.CV;
+using Emgu.CV.Structure;
+using Emgu.CV.UI;
+using Emgu.CV.Util;
+using Emgu.CV.CvEnum;
+
 namespace AMS.ahutit
 {
     public partial class FrmStdEdit : Form
@@ -25,6 +32,11 @@ namespace AMS.ahutit
         string ImageName = "";
         string ImagePath = "";
 
+        private VideoCapture? _capture;
+        private bool _isRunning = false;
+        private readonly object _captureLock = new object();
+        private bool _isFromCamera = false;
+
         
         public FrmStdEdit(Student student)
         {
@@ -35,7 +47,24 @@ namespace AMS.ahutit
             txtIDNo.Text = student.idNo;
             this.txtPhone.Text = student.PhoneNumber;
             txtAttNo.Text = student.CardNo;
-            picStdImage.Image = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "/image/" + student.StdImage);
+
+            
+            try 
+            {
+                if (!string.IsNullOrEmpty(student.StdImage))
+                {
+                    string imgPath = AppDomain.CurrentDomain.BaseDirectory + "/image/" + student.StdImage;
+                    if (File.Exists(imgPath))
+                    {
+                        picStdImage.Image = Image.FromFile(imgPath);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Decide whether to log or ignore. For UI, suppressing and leaving empty is often better than crashing.
+                // Or set a default image
+            }
             if (student.Gender == "男")
             {
                 rdbMale.Checked = true;
@@ -86,7 +115,98 @@ namespace AMS.ahutit
                 picStdImage.Image = Image.FromFile(ofd.FileName);
                 ImagePath = ofd.FileName;
                 ImageName = ofd.SafeFileName;
+                _isFromCamera = false;
             }
+        }
+
+        private void btnTurnOn_Click(object sender, EventArgs e)
+        {
+            lock (_captureLock)
+            {
+                if (_capture == null || _capture.Ptr == IntPtr.Zero)
+                {
+                    _capture = new VideoCapture(0);
+                    _capture.ImageGrabbed += ProcessFrame;
+                }
+                if (!_isRunning)
+                {
+                    _capture.Start();
+                    _isRunning = true;
+                }
+            }
+        }
+
+        private void btnGetPic_Click(object sender, EventArgs e)
+        {
+            lock (_captureLock)
+            {
+                if (_capture != null && _isRunning && _capture.Ptr != IntPtr.Zero)
+                {
+                    _capture.ImageGrabbed -= ProcessFrame; // Stop updating UI
+                    _capture.Stop();
+                    _isRunning = false;
+                    _isFromCamera = true;
+                    // Current image in picStdImage is the one we want
+                }
+            }
+        }
+
+        private void btnTurnOff_Click(object sender, EventArgs e)
+        {
+            DisposeCapture();
+            // Restore original image if cancelled? Or clear? 
+            // For now just stop.
+        }
+
+        private void ProcessFrame(object? sender, EventArgs e)
+        {
+            try
+            {
+                if (!_isRunning) return;
+                Mat displayFrame;
+                using (Mat frame = new Mat())
+                {
+                    lock (_captureLock)
+                    {
+                        if (_capture == null || _capture.Ptr == IntPtr.Zero) return;
+                        _capture.Retrieve(frame);
+                    }
+                    displayFrame = frame.Clone();
+                }
+                this.BeginInvoke((MethodInvoker)delegate
+                {
+                    picStdImage.Image?.Dispose();
+                    picStdImage.Image = displayFrame.ToBitmap();
+                });
+            }
+            catch (Exception) { }
+        }
+
+        private void DisposeCapture()
+        {
+            lock (_captureLock)
+            {
+                if (_capture != null)
+                {
+                    try
+                    {
+                        _capture.ImageGrabbed -= ProcessFrame;
+                        if (_isRunning) _capture.Stop();
+                        _capture.Dispose();
+                    }
+                    finally
+                    {
+                        _capture = null;
+                        _isRunning = false;
+                    }
+                }
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            DisposeCapture();
+            base.OnFormClosing(e);
         }
 
         private string[] BuildImageName()
@@ -118,6 +238,7 @@ namespace AMS.ahutit
                 txtAttNo.Focus();
                 return;
             }
+
             if (!rdbMale.Checked && !rdbFemale.Checked)
             {
                 MessageBox.Show("请选择学生性别！", "提示信息");
@@ -176,6 +297,9 @@ namespace AMS.ahutit
                     return;
                 }
             }
+
+            
+
             #endregion
 
             #region 封装对象
@@ -195,13 +319,25 @@ namespace AMS.ahutit
             };
             try
             {
-                //复制图片文件到相对目录
-                if (ImagePath != "")
+                //保存图片
+                if (_isFromCamera && picStdImage.Image != null)
+                {
+                     string NewImageName = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ".png" ;                    
+                     string fileNameDes = AppDomain.CurrentDomain.BaseDirectory + "/image/" + NewImageName;
+                     newStudent.StdImage = NewImageName;
+                     // Ensure image directory exists
+                     string? dir = Path.GetDirectoryName(fileNameDes);
+                     if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                     
+                     picStdImage.Image.Save(fileNameDes);
+                }
+                else if (ImagePath != "")
                 {
                     string[] newImageFileInfo = BuildImageName();
                     File.Copy(ImagePath, newImageFileInfo[1]);
                     newStudent.StdImage = newImageFileInfo[0];
                 }
+                
                 studentService.updateSingleStdInfo(newStudent);
                 MessageBox.Show("更新学号为[" + txtStdID.Text.Trim() + "]学员信息成功！", "更新成功");                
             }

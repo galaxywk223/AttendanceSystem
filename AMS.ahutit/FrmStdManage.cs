@@ -28,6 +28,8 @@ namespace AMS.ahutit
             cmbClass.ValueMember = "ClassName";
             cmbClass.SelectedIndex = -1;
             dgStd.AutoGenerateColumns = false;
+            stdList = studentService.getAllStudents();
+            dgStd.DataSource = stdList;
         }
 
         private void btnSearchByClass_Click(object sender, EventArgs e)
@@ -60,7 +62,11 @@ namespace AMS.ahutit
         {
             if (dgStd.RowCount == 0) { return; }
             stdList.Clear();
-            stdList.Add(studentService.getStudentByStdID(txtStdID.Text.Trim()));
+            Student? student = studentService.GetStudentByCardNo(txtCardNo.Text.Trim());
+            if (student != null)
+            {
+                stdList.Add(student);
+            }
             dgStd.DataSource=null;
             dgStd.DataSource=stdList;
 
@@ -79,9 +85,10 @@ namespace AMS.ahutit
                 MessageBox.Show("请选择以为学员", "提示信息");
                 return;
             }
-            //获取学号
-            string stdid = dgStd.CurrentRow.Cells["StdId"].Value.ToString();
-            Student student = studentService.getStudentByStdID(stdid);
+            //获取考勤卡号
+            string cardNo = dgStd.CurrentRow.Cells["CardNo"].Value?.ToString() ?? string.Empty;
+            Student? student = studentService.GetStudentByCardNo(cardNo);
+            if (student == null) return;
             FrmStdEdit frmStdEdit = new FrmStdEdit(student);
             if (frmStdEdit.ShowDialog() == DialogResult.OK)
             {
@@ -93,8 +100,9 @@ namespace AMS.ahutit
         private void dgStd_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             //获取选中单元格所在行的第一列值
-            string stdID = dgStd.CurrentRow.Cells["StdId"].Value.ToString();
-            Student student = studentService.getStudentByStdID(stdID);
+            string cardNo = dgStd.CurrentRow.Cells["CardNo"].Value?.ToString() ?? string.Empty;
+            Student? student = studentService.GetStudentByCardNo(cardNo);
+            if (student == null) return;
             FrmStdDetail frmStdDetail = new FrmStdDetail(student);
             frmStdDetail.Show();
         }
@@ -118,22 +126,28 @@ namespace AMS.ahutit
                 MessageBox.Show("请选择以为学员", "提示信息");
                 return;
             }
-            //获取学号
-            string stdid = dgStd.CurrentRow.Cells["StdId"].Value.ToString();
-            Student student = studentService.getStudentByStdID(stdid);
-            DialogResult result=MessageBox.Show("确定要删除学号为["+ stdid+"]学员的信息吗？","删除确认",MessageBoxButtons.OKCancel,MessageBoxIcon.Question);
+            //获取考勤卡号
+            string cardNo = dgStd.CurrentRow.Cells["CardNo"].Value?.ToString() ?? string.Empty;
+            //Student student = studentService.GetStudentByCardNo(cardNo); // Getting full object not strictly needed for ID if we had it, but for delete we need ID.
+            // Wait, deleteStdInfoByID takes stdId. 
+            // So I MUST fetch the student to get the StdId.
+            Student? student = studentService.GetStudentByCardNo(cardNo);
+            if (student == null) return;
+            
+            DialogResult result=MessageBox.Show("确定要删除考勤卡号为["+ cardNo+"]学员的信息吗？","删除确认",MessageBoxButtons.OKCancel,MessageBoxIcon.Question);
             if (result == DialogResult.OK)
             {
                 try 
                 {
-                    if (studentService.deleteStdInfoByID(stdid) == 1)
+                    // Cascading delete may affect multiple rows (attendance + student), so check >= 1
+                    if (studentService.deleteStdInfoByID(student.StdId.ToString()) >= 1)
                     {
                         //MessageBox.Show("删除学号为[" + stdid + "]学员的信息成功", "提示信息");
                         btnSearchByClass_Click(null, null);
                     }
                     else
                     {
-                        MessageBox.Show("删除学号为[" + stdid + "]学员的信息失败", "提示信息");
+                        MessageBox.Show("删除考勤卡号为[" + cardNo + "]学员的信息失败", "提示信息");
                     }
                 }
                 catch { }
@@ -159,7 +173,7 @@ namespace AMS.ahutit
             if (std1 == null && std2 == null) return 0;
             if (std1 == null) return -1;
             if (std2 == null) return 1;
-            return std2.StdId.CompareTo(std1.StdId);
+            return std2.CardNo.CompareTo(std1.CardNo);
         }
     }
     #endregion

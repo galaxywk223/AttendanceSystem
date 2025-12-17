@@ -44,6 +44,7 @@
             txtPhone = new TextBox();
             txtID = new TextBox();
             txtAttNo = new TextBox();
+
             txtName = new TextBox();
             label8 = new Label();
             label3 = new Label();
@@ -51,6 +52,7 @@
             label2 = new Label();
             label5 = new Label();
             label6 = new Label();
+
             label4 = new Label();
             label1 = new Label();
             btnConfirm = new Button();
@@ -132,6 +134,7 @@
             groupBox1.Controls.Add(txtPhone);
             groupBox1.Controls.Add(txtID);
             groupBox1.Controls.Add(txtAttNo);
+
             groupBox1.Controls.Add(txtName);
             groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(label3);
@@ -139,6 +142,7 @@
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label6);
+
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(44, 506);
@@ -212,11 +216,13 @@
             // 
             // txtAttNo
             // 
+            // txtAttNo
+            // 
             txtAttNo.Location = new Point(139, 187);
             txtAttNo.Name = "txtAttNo";
             txtAttNo.Size = new Size(184, 30);
             txtAttNo.TabIndex = 1;
-            // 
+ 
             // txtName
             // 
             txtName.Location = new Point(91, 36);
@@ -277,7 +283,7 @@
             label6.Size = new Size(100, 24);
             label6.TabIndex = 0;
             label6.Text = "考勤卡号：";
-            // 
+
             // label4
             // 
             label4.AutoSize = true;
@@ -377,18 +383,20 @@
         private RadioButton rdbFemale;
         private RadioButton rdbMale;
         private TextBox txtID;
+        private TextBox txtAttNo;
         private TextBox txtName;
         private Label label3;
         private Label label2;
         private Label label5;
+        private Label label6;
         private Label label4;
         private Label label1;
         private TextBox txtAddress;
         private TextBox txtPhone;
-        private TextBox txtAttNo;
+
         private Label label8;
         private Label label7;
-        private Label label6;
+
         private Button btnConfirm;
         private Button btnClose;
         private Button btnTurnOff;

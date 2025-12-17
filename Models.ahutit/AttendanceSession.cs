@@ -11,6 +11,6 @@ namespace Models.ahutit
         public int SessionId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime? EndTime { get; set; }
-        public string OperatorName { get; set; }
+        public string OperatorName { get; set; } = string.Empty;
     }
 }

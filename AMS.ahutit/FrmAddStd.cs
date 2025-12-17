@@ -99,6 +99,7 @@ namespace AMS.ahutit
                 txtAttNo.Focus();
                 return;
             }
+
             if (!rdbMale.Checked && !rdbFemale.Checked)
             {
                 MessageBox.Show("请选择学生性别！", "提示信息");
@@ -149,6 +150,7 @@ namespace AMS.ahutit
                 txtAttNo.Focus();
                 return;
             }
+
             #endregion
 
             #region 封装对象
@@ -191,7 +193,7 @@ namespace AMS.ahutit
                     
                 }
                     int stdid = studentService.addNewStd(newStudent);
-                if (stdid > 1)
+                if (stdid > 0)
                 {
                     newStudent.StdId = stdid;
                     stdList.Add(newStudent);

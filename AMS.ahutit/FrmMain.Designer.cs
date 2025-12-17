@@ -49,10 +49,9 @@ namespace AMS.ahutit
             btnView = new Button();
             btnAtt = new Button();
             btnExport = new Button();
-            btnScore = new Button();
             btnPSW = new Button();
-            btnManange = new Button();
             btnClassManage = new Button();
+            btnManange = new Button();
             btnAdd = new Button();
             monthCalendar1 = new MonthCalendar();
             tsmiMain.SuspendLayout();
@@ -77,13 +76,14 @@ namespace AMS.ahutit
             tsmiSystem.DropDownItems.AddRange(new ToolStripItem[] { tsmiPSW, toolStripMenuItem1, tsmiExit });
             tsmiSystem.Name = "tsmiSystem";
             tsmiSystem.Size = new Size(84, 28);
-            tsmiSystem.Text = "œµÕ≥(&S)";
+            tsmiSystem.Text = "Á≥ªÁªü(&S)";
             // 
             // tsmiPSW
             // 
             tsmiPSW.Name = "tsmiPSW";
             tsmiPSW.Size = new Size(182, 34);
-            tsmiPSW.Text = "√‹¬Î–ﬁ∏ƒ";
+            tsmiPSW.Text = "ÂØÜÁ†Å‰øÆÊîπ";
+            tsmiPSW.Click += btnPSW_Click;
             // 
             // toolStripMenuItem1
             // 
@@ -94,34 +94,36 @@ namespace AMS.ahutit
             // 
             tsmiExit.Name = "tsmiExit";
             tsmiExit.Size = new Size(182, 34);
-            tsmiExit.Text = "ÕÀ≥ˆœµÕ≥";
+            tsmiExit.Text = "ÈÄÄÂá∫Á≥ªÁªü";
+            tsmiExit.Click += btnExit_Click;
             // 
             // tsmiStudentMan
             // 
             tsmiStudentMan.DropDownItems.AddRange(new ToolStripItem[] { tsmiAdd, tsmiClassManage, tsmiImport, toolStripSeparator1, tsmiView });
             tsmiStudentMan.Name = "tsmiStudentMan";
             tsmiStudentMan.Size = new Size(128, 28);
-            tsmiStudentMan.Text = "—ß‘±π‹¿Ì(&M)";
+            tsmiStudentMan.Text = "Â≠¶ÂëòÁÆ°ÁêÜ(&M)";
             // 
             // tsmiAdd
             // 
             tsmiAdd.Name = "tsmiAdd";
             tsmiAdd.Size = new Size(182, 34);
-            tsmiAdd.Text = "ÃÌº”—ß‘±";
+            tsmiAdd.Text = "Ê∑ªÂä†Â≠¶Âëò";
             tsmiAdd.Click += btnAdd_Click;
             // 
             // tsmiClassManage
             // 
             tsmiClassManage.Name = "tsmiClassManage";
             tsmiClassManage.Size = new Size(182, 34);
-            tsmiClassManage.Text = "∞‡º∂π‹¿Ì";
+            tsmiClassManage.Text = "Áè≠Á∫ßÁÆ°ÁêÜ";
             tsmiClassManage.Click += btnClassManage_Click;
             // 
             // tsmiImport
             // 
             tsmiImport.Name = "tsmiImport";
             tsmiImport.Size = new Size(182, 34);
-            tsmiImport.Text = "≈˙¡øµº»Î";
+            tsmiImport.Text = "ÊâπÈáèÂØºÂÖ•";
+            tsmiImport.Click += tsmiImport_Click;
             // 
             // toolStripSeparator1
             // 
@@ -132,7 +134,8 @@ namespace AMS.ahutit
             // 
             tsmiView.Name = "tsmiView";
             tsmiView.Size = new Size(182, 34);
-            tsmiView.Text = "–≈œ¢π‹¿Ì";
+            tsmiView.Text = "ÊàêÁª©ÊµèËßà";
+            tsmiView.Click += btnView_Click;
             // 
             // ssMain
             // 
@@ -148,13 +151,13 @@ namespace AMS.ahutit
             // 
             toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             toolStripStatusLabel1.Size = new Size(135, 24);
-            toolStripStatusLabel1.Text = "∞Ê±æ∫≈£∫V1.0.1";
+            toolStripStatusLabel1.Text = "ÁâàÊú¨Âè∑ÔºöV1.0.1";
             // 
             // toolStripStatusLabel2
             // 
             toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             toolStripStatusLabel2.Size = new Size(100, 24);
-            toolStripStatusLabel2.Text = "µ±«∞”√ªß£∫";
+            toolStripStatusLabel2.Text = "ÂΩìÂâçÁî®Êà∑Ôºö";
             // 
             // tssLabUserName
             // 
@@ -176,7 +179,6 @@ namespace AMS.ahutit
             splitContainer1.Panel1.Controls.Add(btnView);
             splitContainer1.Panel1.Controls.Add(btnAtt);
             splitContainer1.Panel1.Controls.Add(btnExport);
-            splitContainer1.Panel1.Controls.Add(btnScore);
             splitContainer1.Panel1.Controls.Add(btnPSW);
             splitContainer1.Panel1.Controls.Add(btnClassManage);
             splitContainer1.Panel1.Controls.Add(btnManange);
@@ -196,7 +198,7 @@ namespace AMS.ahutit
             btnChangeUser.Name = "btnChangeUser";
             btnChangeUser.Size = new Size(119, 55);
             btnChangeUser.TabIndex = 1;
-            btnChangeUser.Text = "«–ªª’À∫≈";
+            btnChangeUser.Text = "ÂàáÊç¢Ë¥¶Âè∑";
             btnChangeUser.UseVisualStyleBackColor = true;
             btnChangeUser.Click += btnChangeUser_Click;
             // 
@@ -206,7 +208,7 @@ namespace AMS.ahutit
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(119, 55);
             btnExit.TabIndex = 1;
-            btnExit.Text = "ÕÀ≥ˆœµÕ≥";
+            btnExit.Text = "ÈÄÄÂá∫Á≥ªÁªü";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
@@ -216,7 +218,7 @@ namespace AMS.ahutit
             btnView.Name = "btnView";
             btnView.Size = new Size(119, 55);
             btnView.TabIndex = 1;
-            btnView.Text = "≥…º®‰Ø¿¿";
+            btnView.Text = "ÊàêÁª©ÊµèËßà";
             btnView.UseVisualStyleBackColor = true;
             btnView.Click += btnView_Click;
             // 
@@ -226,8 +228,9 @@ namespace AMS.ahutit
             btnAtt.Name = "btnAtt";
             btnAtt.Size = new Size(119, 55);
             btnAtt.TabIndex = 1;
-            btnAtt.Text = "øº«⁄¥Úø®";
-            btnAtt.UseVisualStyleBackColor = true; btnAtt.Click += btnAtt_Click;
+            btnAtt.Text = "ÂèëËµ∑ËÄÉÂã§";
+            btnAtt.UseVisualStyleBackColor = true;
+            btnAtt.Click += btnAtt_Click;
             // 
             // btnExport
             // 
@@ -235,18 +238,9 @@ namespace AMS.ahutit
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(119, 55);
             btnExport.TabIndex = 1;
-            btnExport.Text = "µº≥ˆ»´≤ø";
+            btnExport.Text = "ÂØºÂá∫ÂÖ®ÈÉ®";
             btnExport.UseVisualStyleBackColor = true;
             btnExport.Click += btnExport_Click;
-            // 
-            // btnScore
-            // 
-            btnScore.Location = new Point(16, 421);
-            btnScore.Name = "btnScore";
-            btnScore.Size = new Size(119, 55);
-            btnScore.TabIndex = 1;
-            btnScore.Text = "≥…º®∑÷Œˆ";
-            btnScore.UseVisualStyleBackColor = true;
             // 
             // btnPSW
             // 
@@ -254,9 +248,19 @@ namespace AMS.ahutit
             btnPSW.Name = "btnPSW";
             btnPSW.Size = new Size(119, 55);
             btnPSW.TabIndex = 1;
-            btnPSW.Text = "√‹¬Î–ﬁ∏ƒ";
+            btnPSW.Text = "ÂØÜÁ†Å‰øÆÊîπ";
             btnPSW.UseVisualStyleBackColor = true;
             btnPSW.Click += btnPSW_Click;
+            // 
+            // btnClassManage
+            // 
+            btnClassManage.Location = new Point(16, 421);
+            btnClassManage.Name = "btnClassManage";
+            btnClassManage.Size = new Size(119, 55);
+            btnClassManage.TabIndex = 1;
+            btnClassManage.Text = "Áè≠Á∫ßÁÆ°ÁêÜ";
+            btnClassManage.UseVisualStyleBackColor = true;
+            btnClassManage.Click += btnClassManage_Click;
             // 
             // btnManange
             // 
@@ -264,19 +268,9 @@ namespace AMS.ahutit
             btnManange.Name = "btnManange";
             btnManange.Size = new Size(119, 55);
             btnManange.TabIndex = 1;
-            btnManange.Text = "—ß‘±π‹¿Ì";
+            btnManange.Text = "Â≠¶ÂëòÁÆ°ÁêÜ";
             btnManange.UseVisualStyleBackColor = true;
             btnManange.Click += btnManange_Click;
-            // 
-            // btnClassManage
-            // 
-            btnClassManage.Location = new Point(16, 501);
-            btnClassManage.Name = "btnClassManage";
-            btnClassManage.Size = new Size(119, 55);
-            btnClassManage.TabIndex = 1;
-            btnClassManage.Text = "∞‡º∂π‹¿Ì";
-            btnClassManage.UseVisualStyleBackColor = true;
-            btnClassManage.Click += btnClassManage_Click;
             // 
             // btnAdd
             // 
@@ -284,7 +278,7 @@ namespace AMS.ahutit
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(119, 55);
             btnAdd.TabIndex = 1;
-            btnAdd.Text = "ÃÌº”—ß‘±";
+            btnAdd.Text = "Ê∑ªÂä†Â≠¶Âëò";
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
@@ -305,7 +299,7 @@ namespace AMS.ahutit
             MainMenuStrip = tsmiMain;
             Name = "FrmMain";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "[—ß‘±øº«⁄π‹¿ÌœµÕ≥]";
+            Text = "ÁÆ°ÁêÜÂëòÁ´Ø";
             FormClosing += FrmMain_FormClosing;
             tsmiMain.ResumeLayout(false);
             tsmiMain.PerformLayout();
@@ -339,7 +333,6 @@ namespace AMS.ahutit
         private Button btnView;
         private Button btnAtt;
         private Button btnExport;
-        private Button btnScore;
         private Button btnPSW;
         private Button btnManange;
         private Button btnClassManage;
@@ -349,3 +342,4 @@ namespace AMS.ahutit
         private ToolStripStatusLabel tssLabUserName;
     }
 }
+

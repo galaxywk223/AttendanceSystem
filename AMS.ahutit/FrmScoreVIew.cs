@@ -85,7 +85,7 @@ namespace AMS.ahutit
             // Filter by Class
             if (cmbClass.SelectedIndex != -1 && cmbClass.SelectedValue != null)
             {
-                string selectedClass = cmbClass.SelectedValue.ToString();
+                string selectedClass = cmbClass.SelectedValue?.ToString() ?? string.Empty;
                 filtered = filtered.Where(s => s.ClassName == selectedClass);
             }
 

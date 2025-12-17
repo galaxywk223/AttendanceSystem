@@ -10,6 +10,8 @@ namespace DAL.ahutit
 {
     public class StudentService
     {
+
+
         public bool isIdNoExisted(string idNo)
         {
             string sql = "SELECT COUNT(*) FROM Student WHERE StudentIdNo=@StudentIdNo";
@@ -84,17 +86,17 @@ namespace DAL.ahutit
                     list.Add(new Student()
                     {
                         StdId = Convert.ToInt32(objReader["StudentId"]),
-                        StdName = objReader["StudentName"].ToString(),
-                        Gender = objReader["Gender"].ToString(),
+                        StdName = objReader["StudentName"]?.ToString() ?? string.Empty,
+                        Gender = objReader["Gender"]?.ToString() ?? string.Empty,
                         Birthday = Convert.ToDateTime(objReader["Birthday"]),
-                        idNo = objReader["StudentIdNo"].ToString(),
-                        CardNo = objReader["CardNo"].ToString(),
-                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"].ToString() : "",
-                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"].ToString() : "",
+                        idNo = objReader["StudentIdNo"]?.ToString() ?? string.Empty,
+                        CardNo = objReader["CardNo"]?.ToString() ?? string.Empty,
+                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"]?.ToString() ?? string.Empty : string.Empty,
+                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"]?.ToString() ?? string.Empty : string.Empty,
                         Classid = Convert.ToInt32(objReader["ClassId"]),
-                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"].ToString() : "",
+                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"]?.ToString() ?? string.Empty : string.Empty,
                         Age = objReader["Age"] != DBNull.Value ? Convert.ToInt32(objReader["Age"]) : 0,
-                        ClassName = objReader["ClassName"].ToString()
+                        ClassName = objReader["ClassName"]?.ToString() ?? string.Empty
                     });
                 }
                 objReader.Close();
@@ -151,17 +153,17 @@ namespace DAL.ahutit
                     list.Add(new Student()
                     {
                         StdId = Convert.ToInt32(objReader["StudentId"]),
-                        StdName = objReader["StudentName"].ToString(),
-                        Gender = objReader["Gender"].ToString(),
+                        StdName = objReader["StudentName"]?.ToString() ?? string.Empty,
+                        Gender = objReader["Gender"]?.ToString() ?? string.Empty,
                         Birthday = Convert.ToDateTime(objReader["Birthday"]),
-                        idNo = objReader["StudentIdNo"].ToString(),
-                        CardNo = objReader["CardNo"].ToString(),
-                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"].ToString() : "",
-                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"].ToString() : "",
+                        idNo = objReader["StudentIdNo"]?.ToString() ?? string.Empty,
+                        CardNo = objReader["CardNo"]?.ToString() ?? string.Empty,
+                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"]?.ToString() ?? string.Empty : string.Empty,
+                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"]?.ToString() ?? string.Empty : string.Empty,
                         Classid = Convert.ToInt32(objReader["ClassId"]),
-                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"].ToString() : "",
+                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"]?.ToString() ?? string.Empty : string.Empty,
                         Age = objReader["Age"] != DBNull.Value ? Convert.ToInt32(objReader["Age"]) : 0,
-                        ClassName = objReader["ClassName"].ToString()
+                        ClassName = objReader["ClassName"]?.ToString() ?? string.Empty
                     });
                 }
                 objReader.Close();
@@ -172,7 +174,7 @@ namespace DAL.ahutit
                 throw new Exception("Get students by class failed: " + ex.Message);
             }
         }
-        public Student getStudentByStdID(string stdId)
+        public Student? getStudentByStdID(string stdId)
         {
             string sql = "SELECT StudentId, StudentName, Gender, Birthday, StudentIdNo, CardNo, PhoneNumber, StudentAddress, Student.ClassId, StudentImage, Age, ClassName " +
                          "FROM Student INNER JOIN StudentClass ON Student.ClassId = StudentClass.ClassId " +
@@ -184,23 +186,23 @@ namespace DAL.ahutit
             try
             {
                 SqlDataReader objReader = SQLHelper.GetReader(sql, param);
-                Student student = null;
+                Student? student = null;
                 if (objReader.Read())
                 {
                     student = new Student()
                     {
                         StdId = Convert.ToInt32(objReader["StudentId"]),
-                        StdName = objReader["StudentName"].ToString(),
-                        Gender = objReader["Gender"].ToString(),
+                        StdName = objReader["StudentName"]?.ToString() ?? string.Empty,
+                        Gender = objReader["Gender"]?.ToString() ?? string.Empty,
                         Birthday = Convert.ToDateTime(objReader["Birthday"]),
-                        idNo = objReader["StudentIdNo"].ToString(),
-                        CardNo = objReader["CardNo"].ToString(),
-                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"].ToString() : "",
-                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"].ToString() : "",
+                        idNo = objReader["StudentIdNo"]?.ToString() ?? string.Empty,
+                        CardNo = objReader["CardNo"]?.ToString() ?? string.Empty,
+                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"]?.ToString() ?? string.Empty : string.Empty,
+                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"]?.ToString() ?? string.Empty : string.Empty,
                         Classid = Convert.ToInt32(objReader["ClassId"]),
-                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"].ToString() : "",
+                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"]?.ToString() ?? string.Empty : string.Empty,
                         Age = objReader["Age"] != DBNull.Value ? Convert.ToInt32(objReader["Age"]) : 0,
-                        ClassName = objReader["ClassName"].ToString()
+                        ClassName = objReader["ClassName"]?.ToString() ?? string.Empty
                     };
                 }
                 objReader.Close();
@@ -230,17 +232,17 @@ namespace DAL.ahutit
                     student = new Student()
                     {
                         StdId = Convert.ToInt32(objReader["StudentId"]),
-                        StdName = objReader["StudentName"].ToString(),
-                        Gender = objReader["Gender"].ToString(),
+                        StdName = objReader["StudentName"]?.ToString() ?? string.Empty,
+                        Gender = objReader["Gender"]?.ToString() ?? string.Empty,
                         Birthday = Convert.ToDateTime(objReader["Birthday"]),
-                        idNo = objReader["StudentIdNo"].ToString(),
-                        CardNo = objReader["CardNo"].ToString(),
-                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"].ToString() : "",
-                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"].ToString() : "",
+                        idNo = objReader["StudentIdNo"]?.ToString() ?? string.Empty,
+                        CardNo = objReader["CardNo"]?.ToString() ?? string.Empty,
+                        PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"]?.ToString() ?? string.Empty : string.Empty,
+                        Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"]?.ToString() ?? string.Empty : string.Empty,
                         Classid = Convert.ToInt32(objReader["ClassId"]),
-                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"].ToString() : "",
+                        StdImage = objReader["StudentImage"] != DBNull.Value ? objReader["StudentImage"]?.ToString() ?? string.Empty : string.Empty,
                         Age = objReader["Age"] != DBNull.Value ? Convert.ToInt32(objReader["Age"]) : 0,
-                        ClassName = objReader["ClassName"].ToString()
+                        ClassName = objReader["ClassName"]?.ToString() ?? string.Empty
                     };
                 }
                 objReader.Close();
@@ -252,18 +254,19 @@ namespace DAL.ahutit
             }
         }
 
-        public Student? StudentLogin(string cardNo, string password)
+        public Student? StudentLogin(string loginId, string password)
         {
             // 默认密码：123456；后续如增加学生密码字段可在此扩展
             if (!string.Equals(password, "123456"))
             {
                 return null;
             }
-            return GetStudentByCardNo(cardNo);
+            return GetStudentByCardNo(loginId);
         }
         public int deleteStdInfoByID(string stdId)
         {
-            string sql = "DELETE FROM Student WHERE StudentId=@StudentId";
+            string sql = "DELETE FROM AttendanceRecord WHERE StudentId=@StudentId; " + 
+                         "DELETE FROM Student WHERE StudentId=@StudentId";
             SqlParameter[] param = new SqlParameter[]
             {
                 new SqlParameter("@StudentId", stdId)

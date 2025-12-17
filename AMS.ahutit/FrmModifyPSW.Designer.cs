@@ -124,7 +124,7 @@
             Controls.Add(label1);
             Name = "FrmModifyPSW";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmModifyPSW";
+            Text = "修改密码";
             ResumeLayout(false);
             PerformLayout();
         }

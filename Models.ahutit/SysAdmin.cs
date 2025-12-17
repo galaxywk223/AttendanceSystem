@@ -9,7 +9,7 @@ namespace Models.ahutit
     public class SysAdmin
     {
         public int loginid { get; set; }
-        public string Pwd { get; set; }
-        public string AdminName { get; set; } 
+        public string Pwd { get; set; } = string.Empty;
+        public string AdminName { get; set; } = string.Empty; 
     }
 }

@@ -9,6 +9,6 @@ namespace Models.ahutit
     public class Class
     {
         public int Id { get; set; }
-        public string ClassName { get; set; }
+        public string ClassName { get; set; } = string.Empty;
     }
 }
