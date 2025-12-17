@@ -7,6 +7,7 @@ namespace AMS.ahutit
 {
     public partial class FrmMain : Form
     {
+        private bool isSwitching = false; // Flag to suppress exit confirmation
         StudentService studentService=new StudentService();
         public FrmMain()
         {
@@ -89,6 +90,8 @@ namespace AMS.ahutit
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (isSwitching) return; // Skip confirmation if switching users
+
             DialogResult result = MessageBox.Show("确认退出吗？", "退出确认", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (result != DialogResult.OK)
             {
@@ -122,6 +125,7 @@ namespace AMS.ahutit
                     // 切到学员端
                     FrmStudentMain frmStudentMain = new FrmStudentMain();
                     frmStudentMain.Show();
+                    isSwitching = true; // Suppress exit confirmation
                     this.Close();
                 }
             }
