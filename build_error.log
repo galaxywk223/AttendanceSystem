@@ -1,0 +1,53 @@
+  正在确定要还原的项目…
+  所有项目均是最新的，无法还原。
+  Models.ahutit -> E:\Code\Projects\AttendanceSystem\Models.ahutit\bin\Debug\net8.0\Models.ahutit.dll
+  DAL.ahutit -> E:\Code\Projects\AttendanceSystem\DAL.ahutit\bin\Debug\net8.0\DAL.ahutit.dll
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmLogin.cs(86,40): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(83,28): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(84,64): warning CS8604: “Student StudentService.getStudentByStdID(string stdId)”中的形参“stdId”可能传入 null 引用实参。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(88,40): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(88,46): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(96,28): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(97,64): warning CS8604: “Student StudentService.getStudentByStdID(string stdId)”中的形参“stdId”可能传入 null 引用实参。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\Program.cs(33,47): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(122,28): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(123,64): warning CS8604: “Student StudentService.getStudentByStdID(string stdId)”中的形参“stdId”可能传入 null 引用实参。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(132,48): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(132,54): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmScoreVIew.cs(88,40): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmScoreVIew.Designer.cs(43,13): error CS0103: 当前上下文中不存在名称“CSharp” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmScoreVIew.Designer.cs(44,13): error CS0103: 当前上下文中不存在名称“SQL” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.Designer.cs(308,24): warning CS0169: 从不使用字段“FrmStdManage.button5” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.Designer.cs(309,24): warning CS0169: 从不使用字段“FrmStdManage.button6” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.Designer.cs(304,24): warning CS0169: 从不使用字段“FrmStdManage.btnSearch” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmScoreVIew.Designer.cs(203,43): warning CS0649: 从未对字段“FrmScoreVIew.AttendanceCount”赋值，字段将一直保持其默认值 null [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmScoreVIew.Designer.cs(204,43): warning CS0649: 从未对字段“FrmScoreVIew.AttendanceScore”赋值，字段将一直保持其默认值 null [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.Designer.cs(311,26): warning CS0169: 从不使用字段“FrmStdManage.comboBox1” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+
+生成失败。
+
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmLogin.cs(86,40): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(83,28): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(84,64): warning CS8604: “Student StudentService.getStudentByStdID(string stdId)”中的形参“stdId”可能传入 null 引用实参。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(88,40): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(88,46): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(96,28): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(97,64): warning CS8604: “Student StudentService.getStudentByStdID(string stdId)”中的形参“stdId”可能传入 null 引用实参。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\Program.cs(33,47): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(122,28): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(123,64): warning CS8604: “Student StudentService.getStudentByStdID(string stdId)”中的形参“stdId”可能传入 null 引用实参。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(132,48): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.cs(132,54): warning CS8625: 无法将 null 字面量转换为非 null 的引用类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmScoreVIew.cs(88,40): warning CS8600: 将 null 文本或可能的 null 值转换为不可为 null 类型。 [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.Designer.cs(308,24): warning CS0169: 从不使用字段“FrmStdManage.button5” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.Designer.cs(309,24): warning CS0169: 从不使用字段“FrmStdManage.button6” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.Designer.cs(304,24): warning CS0169: 从不使用字段“FrmStdManage.btnSearch” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmScoreVIew.Designer.cs(203,43): warning CS0649: 从未对字段“FrmScoreVIew.AttendanceCount”赋值，字段将一直保持其默认值 null [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmScoreVIew.Designer.cs(204,43): warning CS0649: 从未对字段“FrmScoreVIew.AttendanceScore”赋值，字段将一直保持其默认值 null [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmStdManage.Designer.cs(311,26): warning CS0169: 从不使用字段“FrmStdManage.comboBox1” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmScoreVIew.Designer.cs(43,13): error CS0103: 当前上下文中不存在名称“CSharp” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+E:\Code\Projects\AttendanceSystem\AMS.ahutit\FrmScoreVIew.Designer.cs(44,13): error CS0103: 当前上下文中不存在名称“SQL” [E:\Code\Projects\AttendanceSystem\AMS.ahutit\AMS.ahutit.csproj]
+    19 个警告
+    2 个错误
+
+已用时间 00:00:01.13

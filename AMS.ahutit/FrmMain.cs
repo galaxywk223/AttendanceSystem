@@ -1,6 +1,7 @@
 using DAL.ahutit;
 using Models.ahutit;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace AMS.ahutit
 {
@@ -12,7 +13,8 @@ namespace AMS.ahutit
             InitializeComponent();
             //显示当前用户
             this.tssLabUserName.Text = Program.currentAdmin != null ? Program.currentAdmin.AdminName : "管理员";
-            btnAtt.Visible = false; // 管理员不需要考勤打卡
+            // btnAtt.Visible = false; // 管理员不需要考勤打卡 -> 改为发起考勤
+            CheckActiveSession();
         }
 
         private void ϵͳToolStripMenuItem_Click(object sender, EventArgs e)
@@ -168,6 +170,58 @@ namespace AMS.ahutit
                     Process.Start(psi);
                 }
             }
+        }
+        private void btnAtt_Click(object sender, EventArgs e)
+        {
+            AttendanceService attService = new AttendanceService();
+            try
+            {
+                if (btnAtt.Text == "考勤打卡" || btnAtt.Text == "发起考勤") 
+                {
+                    // Start Session
+                    if (MessageBox.Show("确定要开始新的考勤吗？\n开始后学员端可以进行签到。", "发起考勤", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        attService.StartSession(Program.currentAdmin.AdminName);
+                        btnAtt.Text = "结束考勤";
+                        btnAtt.BackColor = Color.LightCoral; 
+                        MessageBox.Show("考勤已开始！", "提示");
+                    }
+                }
+                else
+                {
+                    // End Session
+                    if (MessageBox.Show("确定要结束当前考勤吗？\n结束后学员将无法签到。", "结束考勤", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        attService.EndSession();
+                        btnAtt.Text = "发起考勤";
+                        btnAtt.BackColor = SystemColors.Control; 
+                        MessageBox.Show("考勤已结束！", "提示");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("操作失败: " + ex.Message, "错误");
+            }
+        }
+
+        private void CheckActiveSession()
+        {
+            try
+            {
+                AttendanceService attService = new AttendanceService();
+                if (attService.IsSessionActive())
+                {
+                    btnAtt.Text = "结束考勤";
+                    btnAtt.BackColor = Color.LightCoral;
+                }
+                else
+                {
+                    btnAtt.Text = "发起考勤";
+                     btnAtt.BackColor = SystemColors.Control;
+                }
+            }
+            catch { }
         }
     }
 }

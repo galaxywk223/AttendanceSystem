@@ -189,8 +189,6 @@ namespace AMS.ahutit
                     }
                     
                     
-
-
                 }
                     int stdid = studentService.addNewStd(newStudent);
                 if (stdid > 1)
@@ -244,16 +242,6 @@ namespace AMS.ahutit
             returnString[1] = fileNameDes;
             //File.Copy(ImagePath, fileNameDes);
             return returnString;
-        }
-        private void uiButton1_Click(object sender, EventArgs e)
-        {
-            //if (pcbView.Image != null)            
-            //{
-            //    string[] OnlyImageName=ImageName.Split('.');
-            //    long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-            //    string fileNameDes = AppDomain.CurrentDomain.BaseDirectory+"/image/"+ unixTimestamp.ToString()+"."+ OnlyImageName[1];
-            //    File.Copy(ImagePath, fileNameDes);
-            //}
         }
 
         private void ProcessFrame(object? sender, EventArgs e)

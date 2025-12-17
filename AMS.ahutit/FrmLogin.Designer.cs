@@ -82,28 +82,9 @@
             tbxPsw.Name = "tbxPsw";
             tbxPsw.Size = new Size(346, 30);
             tbxPsw.TabIndex = 1;
-            tbxPsw.Text = "123456";
+            tbxPsw.Text = "admin123";
             tbxPsw.UseSystemPasswordChar = true;
-            // 
-            // lblRole
-            // 
-            lblRole.AutoSize = true;
-            lblRole.Location = new Point(518, 253);
-            lblRole.Name = "lblRole";
-            lblRole.Size = new Size(64, 24);
-            lblRole.TabIndex = 4;
-            lblRole.Text = "身份：";
-            // 
-            // cmbRole
-            // 
-            cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbRole.FormattingEnabled = true;
-            cmbRole.Items.AddRange(new object[] { "管理员", "学员" });
-            cmbRole.Location = new Point(601, 250);
-            cmbRole.Name = "cmbRole";
-            cmbRole.Size = new Size(346, 32);
-            cmbRole.TabIndex = 2;
-            cmbRole.SelectedIndexChanged += cmbRole_SelectedIndexChanged;
+            tbxPsw.TextChanged += tbxPsw_TextChanged;
             // 
             // btnLogin
             // 
@@ -124,6 +105,26 @@
             btnClose.Text = "退出";
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += btnClose_Click;
+            // 
+            // lblRole
+            // 
+            lblRole.AutoSize = true;
+            lblRole.Location = new Point(518, 253);
+            lblRole.Name = "lblRole";
+            lblRole.Size = new Size(64, 24);
+            lblRole.TabIndex = 4;
+            lblRole.Text = "身份：";
+            // 
+            // cmbRole
+            // 
+            cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbRole.FormattingEnabled = true;
+            cmbRole.Items.AddRange(new object[] { "管理员", "学员" });
+            cmbRole.Location = new Point(601, 250);
+            cmbRole.Name = "cmbRole";
+            cmbRole.Size = new Size(346, 32);
+            cmbRole.TabIndex = 2;
+            cmbRole.SelectedIndexChanged += cmbRole_SelectedIndexChanged;
             // 
             // FrmLogin
             // 

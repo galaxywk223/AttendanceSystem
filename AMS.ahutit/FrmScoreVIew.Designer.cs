@@ -40,8 +40,8 @@
             StdName = new DataGridViewTextBoxColumn();
             Gender = new DataGridViewTextBoxColumn();
             PhoneNumber = new DataGridViewTextBoxColumn();
-            CSharp = new DataGridViewTextBoxColumn();
-            SQL = new DataGridViewTextBoxColumn();
+            AttendanceCount = new DataGridViewTextBoxColumn();
+            AttendanceScore = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgScore).BeginInit();
             SuspendLayout();
             // 
@@ -62,6 +62,7 @@
             cmbClass.Name = "cmbClass";
             cmbClass.Size = new Size(220, 32);
             cmbClass.TabIndex = 9;
+            cmbClass.SelectedIndexChanged += cmbClass_SelectedIndexChanged;
             // 
             // label4
             // 
@@ -79,7 +80,7 @@
             label1.Name = "label1";
             label1.Size = new Size(213, 24);
             label1.TabIndex = 11;
-            label1.Text = "按C#成绩快速浏览：C#>";
+            label1.Text = "按考勤得分(%)快速浏览：>";
             // 
             // txtScore
             // 
@@ -87,6 +88,7 @@
             txtScore.Name = "txtScore";
             txtScore.Size = new Size(98, 30);
             txtScore.TabIndex = 12;
+            txtScore.TextChanged += txtScore_TextChanged;
             // 
             // btnViewAll
             // 
@@ -96,7 +98,7 @@
             btnViewAll.TabIndex = 10;
             btnViewAll.Text = "显示全部成绩";
             btnViewAll.UseVisualStyleBackColor = true;
-            btnViewAll.Click += btnClose_Click;
+            btnViewAll.Click += btnViewAll_Click;
             // 
             // dgScore
             // 
@@ -109,7 +111,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgScore.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgScore.ColumnHeadersHeight = 50;
-            dgScore.Columns.AddRange(new DataGridViewColumn[] { StdId, StdName, Gender, PhoneNumber, CSharp, SQL });
+            dgScore.Columns.AddRange(new DataGridViewColumn[] { StdId, StdName, Gender, PhoneNumber, AttendanceCount, AttendanceScore });
             dgScore.Location = new Point(3, 122);
             dgScore.Name = "dgScore";
             dgScore.RowHeadersWidth = 62;
@@ -150,21 +152,21 @@
             PhoneNumber.Name = "PhoneNumber";
             PhoneNumber.Width = 200;
             // 
-            // CSharp
+            // AttendanceCount
             // 
-            CSharp.DataPropertyName = "CSharp";
-            CSharp.HeaderText = "C#成绩";
-            CSharp.MinimumWidth = 8;
-            CSharp.Name = "CSharp";
-            CSharp.Width = 250;
+            AttendanceCount.DataPropertyName = "AttendanceCount";
+            AttendanceCount.HeaderText = "签到次数";
+            AttendanceCount.MinimumWidth = 8;
+            AttendanceCount.Name = "AttendanceCount";
+            AttendanceCount.Width = 200;
             // 
-            // SQL
+            // AttendanceScore
             // 
-            SQL.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            SQL.DataPropertyName = "SQL";
-            SQL.HeaderText = "数据库成绩";
-            SQL.MinimumWidth = 8;
-            SQL.Name = "SQL";
+            AttendanceScore.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            AttendanceScore.DataPropertyName = "AttendanceScore";
+            AttendanceScore.HeaderText = "考勤得分(%)";
+            AttendanceScore.MinimumWidth = 8;
+            AttendanceScore.Name = "AttendanceScore";
             // 
             // FrmScoreVIew
             // 
@@ -179,7 +181,7 @@
             Controls.Add(cmbClass);
             Controls.Add(label4);
             Name = "FrmScoreVIew";
-            Text = "FrmScoreVIew";
+            Text = "考勤分析";
             ((System.ComponentModel.ISupportInitialize)dgScore).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -198,7 +200,7 @@
         private DataGridViewTextBoxColumn StdName;
         private DataGridViewTextBoxColumn Gender;
         private DataGridViewTextBoxColumn PhoneNumber;
-        private DataGridViewTextBoxColumn CSharp;
-        private DataGridViewTextBoxColumn SQL;
+        private DataGridViewTextBoxColumn AttendanceCount;
+        private DataGridViewTextBoxColumn AttendanceScore;
     }
 }

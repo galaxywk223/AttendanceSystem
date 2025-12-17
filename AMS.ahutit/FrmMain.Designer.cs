@@ -1,4 +1,4 @@
-ï»¿namespace AMS.ahutit
+namespace AMS.ahutit
 {
     partial class FrmMain
     {
@@ -77,13 +77,13 @@
             tsmiSystem.DropDownItems.AddRange(new ToolStripItem[] { tsmiPSW, toolStripMenuItem1, tsmiExit });
             tsmiSystem.Name = "tsmiSystem";
             tsmiSystem.Size = new Size(84, 28);
-            tsmiSystem.Text = "ç³»ç»Ÿ(&S)";
+            tsmiSystem.Text = "ÏµÍ³(&S)";
             // 
             // tsmiPSW
             // 
             tsmiPSW.Name = "tsmiPSW";
             tsmiPSW.Size = new Size(182, 34);
-            tsmiPSW.Text = "å¯†ç ä¿®æ”¹";
+            tsmiPSW.Text = "ÃÜÂëĞŞ¸Ä";
             // 
             // toolStripMenuItem1
             // 
@@ -94,34 +94,34 @@
             // 
             tsmiExit.Name = "tsmiExit";
             tsmiExit.Size = new Size(182, 34);
-            tsmiExit.Text = "é€€å‡ºç³»ç»Ÿ";
+            tsmiExit.Text = "ÍË³öÏµÍ³";
             // 
             // tsmiStudentMan
             // 
             tsmiStudentMan.DropDownItems.AddRange(new ToolStripItem[] { tsmiAdd, tsmiClassManage, tsmiImport, toolStripSeparator1, tsmiView });
             tsmiStudentMan.Name = "tsmiStudentMan";
             tsmiStudentMan.Size = new Size(128, 28);
-            tsmiStudentMan.Text = "å­¦å‘˜ç®¡ç†(&M)";
+            tsmiStudentMan.Text = "Ñ§Ô±¹ÜÀí(&M)";
             // 
             // tsmiAdd
             // 
             tsmiAdd.Name = "tsmiAdd";
             tsmiAdd.Size = new Size(182, 34);
-            tsmiAdd.Text = "æ·»åŠ å­¦å‘˜";
+            tsmiAdd.Text = "Ìí¼ÓÑ§Ô±";
             tsmiAdd.Click += btnAdd_Click;
             // 
             // tsmiClassManage
             // 
             tsmiClassManage.Name = "tsmiClassManage";
             tsmiClassManage.Size = new Size(182, 34);
-            tsmiClassManage.Text = "ç­çº§ç®¡ç†";
+            tsmiClassManage.Text = "°à¼¶¹ÜÀí";
             tsmiClassManage.Click += btnClassManage_Click;
             // 
             // tsmiImport
             // 
             tsmiImport.Name = "tsmiImport";
             tsmiImport.Size = new Size(182, 34);
-            tsmiImport.Text = "æ‰¹é‡å¯¼å…¥";
+            tsmiImport.Text = "ÅúÁ¿µ¼Èë";
             // 
             // toolStripSeparator1
             // 
@@ -132,7 +132,7 @@
             // 
             tsmiView.Name = "tsmiView";
             tsmiView.Size = new Size(182, 34);
-            tsmiView.Text = "ä¿¡æ¯ç®¡ç†";
+            tsmiView.Text = "ĞÅÏ¢¹ÜÀí";
             // 
             // ssMain
             // 
@@ -148,13 +148,13 @@
             // 
             toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             toolStripStatusLabel1.Size = new Size(135, 24);
-            toolStripStatusLabel1.Text = "ç‰ˆæœ¬å·ï¼šV1.0.1";
+            toolStripStatusLabel1.Text = "°æ±¾ºÅ£ºV1.0.1";
             // 
             // toolStripStatusLabel2
             // 
             toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             toolStripStatusLabel2.Size = new Size(100, 24);
-            toolStripStatusLabel2.Text = "å½“å‰ç”¨æˆ·ï¼š";
+            toolStripStatusLabel2.Text = "µ±Ç°ÓÃ»§£º";
             // 
             // tssLabUserName
             // 
@@ -196,7 +196,7 @@
             btnChangeUser.Name = "btnChangeUser";
             btnChangeUser.Size = new Size(119, 55);
             btnChangeUser.TabIndex = 1;
-            btnChangeUser.Text = "åˆ‡æ¢è´¦å·";
+            btnChangeUser.Text = "ÇĞ»»ÕËºÅ";
             btnChangeUser.UseVisualStyleBackColor = true;
             btnChangeUser.Click += btnChangeUser_Click;
             // 
@@ -206,7 +206,7 @@
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(119, 55);
             btnExit.TabIndex = 1;
-            btnExit.Text = "é€€å‡ºç³»ç»Ÿ";
+            btnExit.Text = "ÍË³öÏµÍ³";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
@@ -216,7 +216,7 @@
             btnView.Name = "btnView";
             btnView.Size = new Size(119, 55);
             btnView.TabIndex = 1;
-            btnView.Text = "æˆç»©æµè§ˆ";
+            btnView.Text = "³É¼¨ä¯ÀÀ";
             btnView.UseVisualStyleBackColor = true;
             btnView.Click += btnView_Click;
             // 
@@ -226,8 +226,8 @@
             btnAtt.Name = "btnAtt";
             btnAtt.Size = new Size(119, 55);
             btnAtt.TabIndex = 1;
-            btnAtt.Text = "è€ƒå‹¤æ‰“å¡";
-            btnAtt.UseVisualStyleBackColor = true;
+            btnAtt.Text = "¿¼ÇÚ´ò¿¨";
+            btnAtt.UseVisualStyleBackColor = true; btnAtt.Click += btnAtt_Click;
             // 
             // btnExport
             // 
@@ -235,7 +235,7 @@
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(119, 55);
             btnExport.TabIndex = 1;
-            btnExport.Text = "å¯¼å‡ºå…¨éƒ¨";
+            btnExport.Text = "µ¼³öÈ«²¿";
             btnExport.UseVisualStyleBackColor = true;
             btnExport.Click += btnExport_Click;
             // 
@@ -245,7 +245,7 @@
             btnScore.Name = "btnScore";
             btnScore.Size = new Size(119, 55);
             btnScore.TabIndex = 1;
-            btnScore.Text = "æˆç»©åˆ†æ";
+            btnScore.Text = "³É¼¨·ÖÎö";
             btnScore.UseVisualStyleBackColor = true;
             // 
             // btnPSW
@@ -254,7 +254,7 @@
             btnPSW.Name = "btnPSW";
             btnPSW.Size = new Size(119, 55);
             btnPSW.TabIndex = 1;
-            btnPSW.Text = "å¯†ç ä¿®æ”¹";
+            btnPSW.Text = "ÃÜÂëĞŞ¸Ä";
             btnPSW.UseVisualStyleBackColor = true;
             btnPSW.Click += btnPSW_Click;
             // 
@@ -264,7 +264,7 @@
             btnManange.Name = "btnManange";
             btnManange.Size = new Size(119, 55);
             btnManange.TabIndex = 1;
-            btnManange.Text = "å­¦å‘˜ç®¡ç†";
+            btnManange.Text = "Ñ§Ô±¹ÜÀí";
             btnManange.UseVisualStyleBackColor = true;
             btnManange.Click += btnManange_Click;
             // 
@@ -274,7 +274,7 @@
             btnClassManage.Name = "btnClassManage";
             btnClassManage.Size = new Size(119, 55);
             btnClassManage.TabIndex = 1;
-            btnClassManage.Text = "ç­çº§ç®¡ç†";
+            btnClassManage.Text = "°à¼¶¹ÜÀí";
             btnClassManage.UseVisualStyleBackColor = true;
             btnClassManage.Click += btnClassManage_Click;
             // 
@@ -284,7 +284,7 @@
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(119, 55);
             btnAdd.TabIndex = 1;
-            btnAdd.Text = "æ·»åŠ å­¦å‘˜";
+            btnAdd.Text = "Ìí¼ÓÑ§Ô±";
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
@@ -305,7 +305,7 @@
             MainMenuStrip = tsmiMain;
             Name = "FrmMain";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "[å­¦å‘˜è€ƒå‹¤ç®¡ç†ç³»ç»Ÿ]";
+            Text = "[Ñ§Ô±¿¼ÇÚ¹ÜÀíÏµÍ³]";
             FormClosing += FrmMain_FormClosing;
             tsmiMain.ResumeLayout(false);
             tsmiMain.PerformLayout();

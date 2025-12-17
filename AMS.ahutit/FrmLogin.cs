@@ -120,5 +120,10 @@ namespace AMS.ahutit
                 label1.Text = "登录账号：";
             }
         }
+
+
+        private void tbxPsw_TextChanged(object sender, EventArgs e)
+        {
+        }
     }
 }

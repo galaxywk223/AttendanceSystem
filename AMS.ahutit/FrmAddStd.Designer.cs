@@ -56,7 +56,6 @@
             btnConfirm = new Button();
             btnClose = new Button();
             btnTurnOff = new Button();
-            uiButton1 = new Sunny.UI.UIButton();
             imageBox1 = new Emgu.CV.UI.ImageBox();
             ((System.ComponentModel.ISupportInitialize)pcbCamera).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pcbView).BeginInit();
@@ -150,6 +149,7 @@
             groupBox1.Text = "学员基本信息";
             // 
             // cmbClass
+            // 
             // 
             cmbClass.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbClass.FormattingEnabled = true;
@@ -326,18 +326,6 @@
             btnTurnOff.UseVisualStyleBackColor = true;
             btnTurnOff.Click += btnTurnOff_Click;
             // 
-            // uiButton1
-            // 
-            uiButton1.Font = new Font("宋体", 12F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiButton1.Location = new Point(1186, 882);
-            uiButton1.MinimumSize = new Size(1, 1);
-            uiButton1.Name = "uiButton1";
-            uiButton1.Size = new Size(150, 52);
-            uiButton1.TabIndex = 3;
-            uiButton1.Text = "test";
-            uiButton1.TipsFont = new Font("宋体", 9F, FontStyle.Regular, GraphicsUnit.Point, 134);
-            uiButton1.Click += uiButton1_Click;
-            // 
             // imageBox1
             // 
             imageBox1.BorderStyle = BorderStyle.FixedSingle;
@@ -353,7 +341,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1418, 970);
             Controls.Add(imageBox1);
-            Controls.Add(uiButton1);
             Controls.Add(groupBox1);
             Controls.Add(btnFromLocal);
             Controls.Add(btnClear);
@@ -405,7 +392,6 @@
         private Button btnConfirm;
         private Button btnClose;
         private Button btnTurnOff;
-        private Sunny.UI.UIButton uiButton1;
         private Emgu.CV.UI.ImageBox imageBox1;
     }
 }
