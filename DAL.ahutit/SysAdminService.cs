@@ -42,9 +42,21 @@ namespace DAL.ahutit
         }
         public int ModifyPSW(SysAdmin objAdmin)
         {
-            //此处应有数据库操作代码，此处省略
-            //模拟密码修改成功，返回1
-            return 1;
+            string sql = "UPDATE SysAdmin SET LoginPwd=@Pwd WHERE LoginId=@LoginId";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@Pwd", objAdmin.Pwd),
+                new SqlParameter("@LoginId", objAdmin.loginid)
+            };
+
+            try
+            {
+                return SQLHelper.Update(sql, param);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Modify password failed: " + ex.Message);
+            }
         }
     }
 }
