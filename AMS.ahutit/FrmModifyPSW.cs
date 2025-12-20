@@ -71,9 +71,10 @@ namespace AMS.ahutit
                 };
                 if (new SysAdminService().ModifyPSW(sysAdmin) == 1)
                 {
-                    MessageBox.Show("密码修改成功", "提示");
+                    MessageBox.Show("密码修改成功，请重新登录", "提示");
                     //修改系统对象的密码
                     Program.currentAdmin.Pwd = txtNewPSW.Text.Trim();
+                    this.DialogResult = DialogResult.OK;
                     this.Close();
                 }                
             }

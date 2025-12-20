@@ -22,7 +22,7 @@ namespace DAL.ahutit
                     list.Add(new Class()
                     {
                         Id = Convert.ToInt32(objReader["ClassId"]),
-                        ClassName = objReader["ClassName"].ToString()
+                        ClassName = objReader["ClassName"]?.ToString() ?? string.Empty
                     });
                 }
                 objReader.Close();
@@ -85,6 +85,17 @@ namespace DAL.ahutit
                 new SqlParameter("@ClassId", classId)
             };
             return SQLHelper.Update(sql, parameters);
+        }
+
+        public bool ClassHasStudents(int classId)
+        {
+            string sql = "SELECT COUNT(1) FROM Student WHERE ClassId=@ClassId";
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@ClassId", classId)
+            };
+            object result = SQLHelper.GetSingleResult(sql, parameters) ?? 0;
+            return Convert.ToInt32(result) > 0;
         }
     }
 }

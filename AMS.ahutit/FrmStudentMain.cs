@@ -9,7 +9,6 @@ namespace AMS.ahutit
     public partial class FrmStudentMain : Form
     {
         private readonly Student _student;
-        private readonly ScoreService _scoreService = new ScoreService();
 
         public FrmStudentMain()
         {
@@ -22,10 +21,32 @@ namespace AMS.ahutit
             lblWelcome.Text = $"欢迎，{_student.StdName}（班级：{_student.ClassName}，卡号：{_student.CardNo}）";
         }
 
+        private void ClosePreForm()
+        {
+            foreach (Control item in panelContent.Controls)
+            {
+                if (item is Form)
+                {
+                    Form objForm = (Form)item;
+                    objForm.Close();
+                }
+            }
+        }
+
+        private void OpenForm(Form objForm)
+        {
+            objForm.TopLevel = false;
+            objForm.FormBorderStyle = FormBorderStyle.None;
+            objForm.Dock = DockStyle.Fill;
+            objForm.Parent = panelContent;
+            objForm.Show();
+        }
+
         private void btnViewProfile_Click(object sender, EventArgs e)
         {
-            FrmStdDetail detail = new FrmStdDetail(_student);
-            detail.ShowDialog();
+            ClosePreForm();
+            FrmStdDetail detail = new FrmStdDetail(_student, true);
+            OpenForm(detail);
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -36,22 +57,9 @@ namespace AMS.ahutit
 
         private void btnScore_Click(object sender, EventArgs e)
         {
-            try
-            {
-                StudentExt? score = _scoreService.GetStudentScoreByStudentId(_student.StdId);
-                if (score != null)
-                {
-                    MessageBox.Show($"签到次数：{score.AttendanceCount}\n考勤总次数：{score.TotalSessions}\n\n当前考勤得分：{score.AttendanceScore}", "我的考勤分析", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("未查询到您的考勤信息。", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("查询成绩失败: " + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            ClosePreForm();
+            FrmStudentScoreView scoreView = new FrmStudentScoreView(_student);
+            OpenForm(scoreView);
         }
 
         private void btnSignIn_Click(object sender, EventArgs e)
@@ -73,6 +81,13 @@ namespace AMS.ahutit
             {
                 MessageBox.Show(ex.Message, "签到提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void btnChangePwd_Click(object sender, EventArgs e)
+        {
+            ClosePreForm();
+            FrmStudentModifyPSW modify = new FrmStudentModifyPSW(_student);
+            OpenForm(modify);
         }
     }
 }

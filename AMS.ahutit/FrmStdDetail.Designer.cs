@@ -47,6 +47,9 @@
             label4 = new Label();
             label1 = new Label();
             btnClose = new Button();
+            btnEdit = new Button();
+            btnSave = new Button();
+            btnChangeImage = new Button();
             ((System.ComponentModel.ISupportInitialize)picStdImage).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -59,6 +62,17 @@
             picStdImage.SizeMode = PictureBoxSizeMode.StretchImage;
             picStdImage.TabIndex = 0;
             picStdImage.TabStop = false;
+            // 
+            // btnChangeImage
+            // 
+            btnChangeImage.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnChangeImage.Location = new Point(108, 512);
+            btnChangeImage.Name = "btnChangeImage";
+            btnChangeImage.Size = new Size(172, 34);
+            btnChangeImage.TabIndex = 5;
+            btnChangeImage.Text = "更换照片";
+            btnChangeImage.UseVisualStyleBackColor = true;
+            btnChangeImage.Click += btnChangeImage_Click;
             // 
             // groupBox1
             // 
@@ -218,19 +232,46 @@
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(663, 538);
+            btnClose.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnClose.Location = new Point(951, 538);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(112, 34);
-            btnClose.TabIndex = 4;
+            btnClose.TabIndex = 8;
             btnClose.Text = "关闭";
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += btnClose_Click;
+            // 
+            // btnEdit
+            // 
+            btnEdit.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnEdit.Location = new Point(663, 538);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(112, 34);
+            btnEdit.TabIndex = 6;
+            btnEdit.Text = "编辑";
+            btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
+            // 
+            // btnSave
+            // 
+            btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSave.Location = new Point(807, 538);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(112, 34);
+            btnSave.TabIndex = 7;
+            btnSave.Text = "保存";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // FrmStdDetail
             // 
             AutoScaleDimensions = new SizeF(11F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             ClientSize = new Size(1202, 601);
+            Controls.Add(btnChangeImage);
+            Controls.Add(btnSave);
+            Controls.Add(btnEdit);
             Controls.Add(btnClose);
             Controls.Add(groupBox1);
             Controls.Add(picStdImage);
@@ -266,5 +307,8 @@
         private TextBox txtClassName;
         private Button btnClose;
         private TextBox txtGender;
+        private Button btnEdit;
+        private Button btnSave;
+        private Button btnChangeImage;
     }
 }

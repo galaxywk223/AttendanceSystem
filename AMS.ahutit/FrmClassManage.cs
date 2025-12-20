@@ -31,17 +31,22 @@ namespace AMS.ahutit
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            string? computedName = BuildClassNameFromInputs();
-            if (computedName == null) return;
-
-            if (_classService.ClassNameExists(computedName))
+            string className = txtClassName.Text.Trim();
+            if (className.Length == 0)
             {
-                MessageBox.Show("班级名称已存在，请输入新的名称。", "提示");
-                txtShort.Focus();
+                MessageBox.Show("请输入班级名称。", "提示");
+                txtClassName.Focus();
                 return;
             }
 
-            int newId = _classService.AddClass(new Class { ClassName = computedName });
+            if (_classService.ClassNameExists(className))
+            {
+                MessageBox.Show("班级名称已存在，请输入新的名称。", "提示");
+                txtClassName.Focus();
+                return;
+            }
+
+            int newId = _classService.AddClass(new Class { ClassName = className });
             if (newId > 0)
             {
                 LoadClassList();
@@ -59,16 +64,21 @@ namespace AMS.ahutit
             }
 
             int classId = Convert.ToInt32(dgvClasses.CurrentRow.Cells["colId"].Value);
-            string? computedName = BuildClassNameFromInputs();
-            if (computedName == null) return;
+            string className = txtClassName.Text.Trim();
+            if (className.Length == 0)
+            {
+                MessageBox.Show("请输入班级名称。", "提示");
+                txtClassName.Focus();
+                return;
+            }
 
-            if (_classService.ClassNameExists(computedName, classId))
+            if (_classService.ClassNameExists(className, classId))
             {
                 MessageBox.Show("班级名称已存在，请输入新的名称。", "提示");
                 return;
             }
 
-            int rows = _classService.UpdateClass(new Class { Id = classId, ClassName = computedName });
+            int rows = _classService.UpdateClass(new Class { Id = classId, ClassName = className });
             if (rows == 1)
             {
                 LoadClassList();
@@ -89,6 +99,11 @@ namespace AMS.ahutit
             }
 
             int classId = Convert.ToInt32(dgvClasses.CurrentRow.Cells["colId"].Value);
+            if (_classService.ClassHasStudents(classId))
+            {
+                MessageBox.Show("该班级下存在学员，无法删除。请先移除或转移学员。", "提示");
+                return;
+            }
             DialogResult result = MessageBox.Show($"确定删除编号为[{classId}]的班级吗？", "删除确认", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (result != DialogResult.OK)
             {
@@ -121,7 +136,6 @@ namespace AMS.ahutit
                 {
                     txtClassName.Text = dgvClasses.CurrentRow.Cells[col.Index].Value?.ToString();
                 }
-                ClearInputBuildersOnly();
             }
         }
 
@@ -146,57 +160,9 @@ namespace AMS.ahutit
             }
         }
 
-        private string? BuildClassNameFromInputs()
-        {
-            string major = txtMajor.Text.Trim();
-            string shortName = txtShort.Text.Trim();
-            string gradeText = txtGrade.Text.Trim();
-            string classNoText = txtClassNo.Text.Trim();
-
-            if (shortName.Length == 0)
-            {
-                MessageBox.Show("请填写简称。", "提示");
-                txtShort.Focus();
-                return null;
-            }
-
-            if (!int.TryParse(gradeText, out int grade) || grade <= 0)
-            {
-                MessageBox.Show("年级必须为有效数字，例如 2023。", "提示");
-                txtGrade.Focus();
-                return null;
-            }
-
-            if (!int.TryParse(classNoText, out int classNo) || classNo <= 0)
-            {
-                MessageBox.Show("班级号必须为正整数。", "提示");
-                txtClassNo.Focus();
-                return null;
-            }
-
-            string gradeSuffix = (grade % 100).ToString("D2");
-            string className = $"{shortName}{gradeSuffix}{classNo}";
-            txtClassName.Text = className;
-            return className;
-        }
-
-        private void ClassPartChanged(object sender, EventArgs e)
-        {
-            BuildClassNameFromInputs();
-        }
-
         private void ClearInputs()
         {
-            ClearInputBuildersOnly();
             txtClassName.Clear();
-        }
-
-        private void ClearInputBuildersOnly()
-        {
-            txtMajor.Clear();
-            txtShort.Clear();
-            txtGrade.Clear();
-            txtClassNo.Clear();
         }
     }
 }

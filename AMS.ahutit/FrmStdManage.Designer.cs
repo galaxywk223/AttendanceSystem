@@ -30,6 +30,7 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
+            btnRefresh = new Button();
             btnSearchByNumDesc = new Button();
             btnSearchByNameDesc = new Button();
             btnSearchByClass = new Button();
@@ -41,7 +42,6 @@
             txtCardNo = new TextBox();
             btnSearchByNum = new Button();
             label1 = new Label();
-            btnPrint = new Button();
             dgStd = new DataGridView();
             CardNo = new DataGridViewTextBoxColumn();
             StdName = new DataGridViewTextBoxColumn();
@@ -58,6 +58,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnRefresh);
             groupBox1.Controls.Add(btnSearchByNumDesc);
             groupBox1.Controls.Add(btnSearchByNameDesc);
             groupBox1.Controls.Add(btnSearchByClass);
@@ -70,13 +71,23 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "[按照班级查询]";
             // 
+            // btnRefresh
+            // 
+            btnRefresh.Location = new Point(950, 50);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(72, 34);
+            btnRefresh.TabIndex = 8;
+            btnRefresh.Text = "刷新";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
+            // 
             // btnSearchByNumDesc
             // 
             btnSearchByNumDesc.Location = new Point(820, 50);
             btnSearchByNumDesc.Name = "btnSearchByNumDesc";
             btnSearchByNumDesc.Size = new Size(112, 34);
             btnSearchByNumDesc.TabIndex = 7;
-            btnSearchByNumDesc.Text = "卡号降序";
+            btnSearchByNumDesc.Text = "卡号升序";
             btnSearchByNumDesc.UseVisualStyleBackColor = true;
             btnSearchByNumDesc.Click += btnSearchByNumDesc_Click;
             // 
@@ -86,7 +97,7 @@
             btnSearchByNameDesc.Name = "btnSearchByNameDesc";
             btnSearchByNameDesc.Size = new Size(112, 34);
             btnSearchByNameDesc.TabIndex = 7;
-            btnSearchByNameDesc.Text = "姓名降序";
+            btnSearchByNameDesc.Text = "姓名升序";
             btnSearchByNameDesc.UseVisualStyleBackColor = true;
             btnSearchByNameDesc.Click += btnSearchByNameDesc_Click;
             // 
@@ -174,15 +185,6 @@
             label1.Size = new Size(64, 24);
             label1.TabIndex = 5;
             label1.Text = "卡号：";
-            // 
-            // btnPrint
-            // 
-            btnPrint.Location = new Point(1110, 164);
-            btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(249, 34);
-            btnPrint.TabIndex = 7;
-            btnPrint.Text = "打印";
-            btnPrint.UseVisualStyleBackColor = true;
             // 
             // dgStd
             // 
@@ -280,7 +282,6 @@
             Controls.Add(btnDelete);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Controls.Add(btnPrint);
             Controls.Add(btnClose);
             Controls.Add(btnEdit);
             Name = "FrmStdManage";
@@ -300,6 +301,7 @@
         private Label label4;
         private Button btnSearchByNumDesc;
         private Button btnSearchByNameDesc;
+        private Button btnRefresh;
         private Button btnSearchByClass;
         private Button btnEdit;
         private Button btnDelete;
@@ -307,7 +309,6 @@
         private Button btnSearchByNum;
         private Label label1;
         private TextBox txtCardNo;
-        private Button btnPrint;
         private DataGridView dgStd;
         private Button btnClose;
         private DataGridViewTextBoxColumn CardNo;

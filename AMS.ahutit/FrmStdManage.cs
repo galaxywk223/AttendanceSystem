@@ -72,6 +72,15 @@ namespace AMS.ahutit
 
         }
 
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            cmbClass.SelectedIndex = -1;
+            txtCardNo.Clear();
+            stdList = studentService.getAllStudents();
+            dgStd.DataSource = stdList;
+            dgStd.Refresh();
+        }
+
         private void btnEdit_Click(object sender, EventArgs e)
         {
             //确定用户选中一行
@@ -162,7 +171,7 @@ namespace AMS.ahutit
             if (std1 == null && std2 == null) return 0;
             if (std1 == null) return -1;
             if (std2 == null) return 1;
-            return std2.StdName.CompareTo(std1.StdName);
+            return std1.StdName.CompareTo(std2.StdName);
         }
     }
 
@@ -173,7 +182,7 @@ namespace AMS.ahutit
             if (std1 == null && std2 == null) return 0;
             if (std1 == null) return -1;
             if (std2 == null) return 1;
-            return std2.CardNo.CompareTo(std1.CardNo);
+            return std1.CardNo.CompareTo(std2.CardNo);
         }
     }
     #endregion

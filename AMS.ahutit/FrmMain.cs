@@ -2,6 +2,7 @@ using DAL.ahutit;
 using Models.ahutit;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 
 namespace AMS.ahutit
 {
@@ -114,7 +115,12 @@ namespace AMS.ahutit
         private void btnPSW_Click(object sender, EventArgs e)
         {
             FrmModifyPSW frmModifyPSW = new FrmModifyPSW();
-            frmModifyPSW.ShowDialog();
+            if (frmModifyPSW.ShowDialog() == DialogResult.OK)
+            {
+                Program.IsLogout = true;
+                isSwitching = true;
+                this.Close();
+            }
         }
 
         private void btnView_Click(object sender, EventArgs e)
@@ -127,14 +133,29 @@ namespace AMS.ahutit
 
         private void tsmiImport_Click(object sender, EventArgs e)
         {
-             MessageBox.Show("批量导入功能暂未开放！", "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Excel文件|*.xlsx;*.xls";
+            ofd.Title = "选择学员导入文件";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                StudentImportResult result = StudentImportService.ImportStudents(ofd.FileName);
+                if (result.Errors.Count == 0)
+                {
+                    MessageBox.Show($"导入完成，共{result.Total}条，成功{result.Success}条。", "导入成功");
+                }
+                else
+                {
+                    string errorText = string.Join(Environment.NewLine, result.Errors.Take(10));
+                    MessageBox.Show($"导入完成，共{result.Total}条，成功{result.Success}条，失败{result.Errors.Count}条。\n\n失败原因(前10条):\n{errorText}", "导入完成");
+                }
+            }
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
             //设置列标题
             Dictionary<string,string> columnNames=new Dictionary<string, string>();
-            columnNames.Add("StdId", "学号");
+            columnNames.Add("StdId", "ID");
             columnNames.Add("StdName", "姓名");
             columnNames.Add("Birthday", "出生日期");
             columnNames.Add("Gender", "性别");

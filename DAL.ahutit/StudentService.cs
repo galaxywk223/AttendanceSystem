@@ -48,8 +48,8 @@ namespace DAL.ahutit
         }
         public int addNewStd(Student newStudent)
         {
-            string sql = "INSERT INTO Student (StudentName, Gender, Birthday, StudentIdNo, CardNo, PhoneNumber, StudentAddress, ClassId, StudentImage, Age) " +
-                         "VALUES (@StudentName, @Gender, @Birthday, @StudentIdNo, @CardNo, @PhoneNumber, @StudentAddress, @ClassId, @StudentImage, @Age); " +
+            string sql = "INSERT INTO Student (StudentName, Gender, Birthday, StudentIdNo, CardNo, StudentPwd, PhoneNumber, StudentAddress, ClassId, StudentImage, Age) " +
+                         "VALUES (@StudentName, @Gender, @Birthday, @StudentIdNo, @CardNo, @StudentPwd, @PhoneNumber, @StudentAddress, @ClassId, @StudentImage, @Age); " +
                          "SELECT @@IDENTITY";
             SqlParameter[] param = new SqlParameter[]
             {
@@ -58,6 +58,7 @@ namespace DAL.ahutit
                 new SqlParameter("@Birthday", newStudent.Birthday),
                 new SqlParameter("@StudentIdNo", newStudent.idNo),
                 new SqlParameter("@CardNo", newStudent.CardNo),
+                new SqlParameter("@StudentPwd", newStudent.StudentPwd ?? "123456"),
                 new SqlParameter("@PhoneNumber", newStudent.PhoneNumber),
                 new SqlParameter("@StudentAddress", newStudent.Address),
                 new SqlParameter("@ClassId", newStudent.Classid),
@@ -176,7 +177,7 @@ namespace DAL.ahutit
         }
         public Student? getStudentByStdID(string stdId)
         {
-            string sql = "SELECT StudentId, StudentName, Gender, Birthday, StudentIdNo, CardNo, PhoneNumber, StudentAddress, Student.ClassId, StudentImage, Age, ClassName " +
+            string sql = "SELECT StudentId, StudentName, Gender, Birthday, StudentIdNo, CardNo, StudentPwd, PhoneNumber, StudentAddress, Student.ClassId, StudentImage, Age, ClassName " +
                          "FROM Student INNER JOIN StudentClass ON Student.ClassId = StudentClass.ClassId " +
                          "WHERE StudentId=@StudentId";
             SqlParameter[] param = new SqlParameter[]
@@ -197,6 +198,7 @@ namespace DAL.ahutit
                         Birthday = Convert.ToDateTime(objReader["Birthday"]),
                         idNo = objReader["StudentIdNo"]?.ToString() ?? string.Empty,
                         CardNo = objReader["CardNo"]?.ToString() ?? string.Empty,
+                        StudentPwd = objReader["StudentPwd"]?.ToString(),
                         PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"]?.ToString() ?? string.Empty : string.Empty,
                         Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"]?.ToString() ?? string.Empty : string.Empty,
                         Classid = Convert.ToInt32(objReader["ClassId"]),
@@ -216,7 +218,7 @@ namespace DAL.ahutit
 
         public Student? GetStudentByCardNo(string cardNo)
         {
-            string sql = "SELECT StudentId, StudentName, Gender, Birthday, StudentIdNo, CardNo, PhoneNumber, StudentAddress, Student.ClassId, StudentImage, Age, ClassName " +
+            string sql = "SELECT StudentId, StudentName, Gender, Birthday, StudentIdNo, CardNo, StudentPwd, PhoneNumber, StudentAddress, Student.ClassId, StudentImage, Age, ClassName " +
                          "FROM Student INNER JOIN StudentClass ON Student.ClassId = StudentClass.ClassId " +
                          "WHERE CardNo=@CardNo";
             SqlParameter[] param = new SqlParameter[]
@@ -237,6 +239,7 @@ namespace DAL.ahutit
                         Birthday = Convert.ToDateTime(objReader["Birthday"]),
                         idNo = objReader["StudentIdNo"]?.ToString() ?? string.Empty,
                         CardNo = objReader["CardNo"]?.ToString() ?? string.Empty,
+                        StudentPwd = objReader["StudentPwd"]?.ToString(),
                         PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"]?.ToString() ?? string.Empty : string.Empty,
                         Address = objReader["StudentAddress"] != DBNull.Value ? objReader["StudentAddress"]?.ToString() ?? string.Empty : string.Empty,
                         Classid = Convert.ToInt32(objReader["ClassId"]),
@@ -256,12 +259,35 @@ namespace DAL.ahutit
 
         public Student? StudentLogin(string loginId, string password)
         {
-            // 默认密码：123456；后续如增加学生密码字段可在此扩展
-            if (!string.Equals(password, "123456"))
+            Student? student = GetStudentByCardNo(loginId);
+            if (student == null)
             {
                 return null;
             }
-            return GetStudentByCardNo(loginId);
+            string storedPwd = string.IsNullOrEmpty(student.StudentPwd) ? "123456" : student.StudentPwd;
+            if (!string.Equals(password, storedPwd))
+            {
+                return null;
+            }
+            return student;
+        }
+
+        public int ModifyStudentPwd(int studentId, string newPassword)
+        {
+            string sql = "UPDATE Student SET StudentPwd=@Pwd WHERE StudentId=@StudentId";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@Pwd", newPassword),
+                new SqlParameter("@StudentId", studentId)
+            };
+            try
+            {
+                return SQLHelper.Update(sql, param);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Modify student password failed: " + ex.Message);
+            }
         }
         public int deleteStdInfoByID(string stdId)
         {
@@ -278,6 +304,26 @@ namespace DAL.ahutit
             catch (Exception ex)
             {
                 throw new Exception("Delete student failed: " + ex.Message);
+            }
+        }
+
+        public int UpdateStudentProfileLimited(int studentId, string address, string phoneNumber, string imageName)
+        {
+            string sql = "UPDATE Student SET StudentAddress=@Address, PhoneNumber=@PhoneNumber, StudentImage=@StudentImage WHERE StudentId=@StudentId";
+            SqlParameter[] param = new SqlParameter[]
+            {
+                new SqlParameter("@Address", address),
+                new SqlParameter("@PhoneNumber", phoneNumber),
+                new SqlParameter("@StudentImage", imageName),
+                new SqlParameter("@StudentId", studentId)
+            };
+            try
+            {
+                return SQLHelper.Update(sql, param);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Update student profile failed: " + ex.Message);
             }
         }
     }

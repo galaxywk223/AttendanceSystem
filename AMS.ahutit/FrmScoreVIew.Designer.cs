@@ -36,7 +36,7 @@
             txtScore = new TextBox();
             btnViewAll = new Button();
             dgScore = new DataGridView();
-            StdId = new DataGridViewTextBoxColumn();
+            CardNo = new DataGridViewTextBoxColumn();
             StdName = new DataGridViewTextBoxColumn();
             Gender = new DataGridViewTextBoxColumn();
             PhoneNumber = new DataGridViewTextBoxColumn();
@@ -111,21 +111,21 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgScore.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgScore.ColumnHeadersHeight = 50;
-            dgScore.Columns.AddRange(new DataGridViewColumn[] { StdId, StdName, Gender, PhoneNumber, AttendanceCount, AttendanceScore });
+            dgScore.Columns.AddRange(new DataGridViewColumn[] { CardNo, StdName, Gender, PhoneNumber, AttendanceCount, AttendanceScore });
             dgScore.Location = new Point(3, 122);
             dgScore.Name = "dgScore";
             dgScore.RowHeadersWidth = 62;
             dgScore.Size = new Size(1310, 660);
             dgScore.TabIndex = 13;
             // 
-            // StdId
+            // CardNo
             // 
-            StdId.DataPropertyName = "StdId";
-            StdId.HeaderText = "学号";
-            StdId.MinimumWidth = 8;
-            StdId.Name = "StdId";
-            StdId.ReadOnly = true;
-            StdId.Width = 150;
+            CardNo.DataPropertyName = "CardNo";
+            CardNo.HeaderText = "考勤卡号";
+            CardNo.MinimumWidth = 8;
+            CardNo.Name = "CardNo";
+            CardNo.ReadOnly = true;
+            CardNo.Width = 150;
             // 
             // StdName
             // 
@@ -196,7 +196,7 @@
         private TextBox txtScore;
         private Button btnViewAll;
         private DataGridView dgScore;
-        private DataGridViewTextBoxColumn StdId;
+        private DataGridViewTextBoxColumn CardNo;
         private DataGridViewTextBoxColumn StdName;
         private DataGridViewTextBoxColumn Gender;
         private DataGridViewTextBoxColumn PhoneNumber;

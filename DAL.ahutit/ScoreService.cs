@@ -10,7 +10,7 @@ namespace DAL.ahutit
 {
     public class ScoreService
     {
-        public List<StudentExt> GetStudentScores(string className = null)
+        public List<StudentExt> GetStudentScores(string? className = null)
         {
             // Calculate Attendance Score: (SignCount / TotalSessions) * 100
             
@@ -24,7 +24,7 @@ namespace DAL.ahutit
             try { totalSessions = Convert.ToInt32(SQLHelper.GetSingleResult(sqlTotal)); } catch { }
 
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("SELECT St.StudentId, St.StudentName, St.Gender, St.PhoneNumber, Cl.ClassName, ");
+            sqlBuilder.Append("SELECT St.StudentId, St.CardNo, St.StudentName, St.Gender, St.PhoneNumber, Cl.ClassName, ");
             sqlBuilder.Append("(SELECT COUNT(*) FROM AttendanceRecord Ar WHERE Ar.StudentId = St.StudentId) AS AttendanceCount ");
             sqlBuilder.Append("FROM Student St ");
             sqlBuilder.Append("INNER JOIN StudentClass Cl ON St.ClassId = Cl.ClassId ");
@@ -36,7 +36,7 @@ namespace DAL.ahutit
 
             sqlBuilder.Append("ORDER BY Cl.ClassName, St.StudentId ASC");
 
-            SqlParameter[] param = null;
+            SqlParameter[]? param = null;
             if (!string.IsNullOrEmpty(className))
             {
                 param = new SqlParameter[]
@@ -63,6 +63,7 @@ namespace DAL.ahutit
                     list.Add(new StudentExt()
                     {
                         StdId = Convert.ToInt32(objReader["StudentId"]),
+                        CardNo = objReader["CardNo"]?.ToString() ?? string.Empty,
                         StdName = objReader["StudentName"]?.ToString() ?? string.Empty,
                         Gender = objReader["Gender"]?.ToString() ?? string.Empty,
                         PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"]?.ToString() ?? string.Empty : string.Empty,
@@ -88,7 +89,7 @@ namespace DAL.ahutit
             int totalSessions = 0;
             try { totalSessions = Convert.ToInt32(SQLHelper.GetSingleResult(sqlTotal)); } catch { }
 
-            string sql = "SELECT St.StudentId, St.StudentName, St.Gender, St.PhoneNumber, Cl.ClassName, " +
+            string sql = "SELECT St.StudentId, St.CardNo, St.StudentName, St.Gender, St.PhoneNumber, Cl.ClassName, " +
                          "(SELECT COUNT(*) FROM AttendanceRecord Ar WHERE Ar.StudentId = St.StudentId) AS AttendanceCount " +
                          "FROM Student St " +
                          "INNER JOIN StudentClass Cl ON St.ClassId = Cl.ClassId " +
@@ -115,6 +116,7 @@ namespace DAL.ahutit
                     studentScore = new StudentExt()
                     {
                         StdId = Convert.ToInt32(objReader["StudentId"]),
+                        CardNo = objReader["CardNo"]?.ToString() ?? string.Empty,
                         StdName = objReader["StudentName"]?.ToString() ?? string.Empty,
                         Gender = objReader["Gender"]?.ToString() ?? string.Empty,
                         PhoneNumber = objReader["PhoneNumber"] != DBNull.Value ? objReader["PhoneNumber"]?.ToString() ?? string.Empty : string.Empty,
