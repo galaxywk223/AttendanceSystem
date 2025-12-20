@@ -17,7 +17,7 @@ namespace AMS.ahutit
 
                 if (result == DialogResult.OK)
                 {
-                    IsLogout = false; // Reset flag
+                    IsLogout = false;
                     if (currentStudent != null)
                     {
                         Application.Run(new FrmStudentMain());
@@ -29,9 +29,9 @@ namespace AMS.ahutit
 
                     if (!IsLogout)
                     {
-                        break; // If form closed not due to logout, assume exit
+                        break;
                     }
-                    // Else loop continues to show login
+
                     currentStudent = null;
                     currentAdmin = null;
                 }

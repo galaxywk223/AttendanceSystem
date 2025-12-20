@@ -66,8 +66,10 @@ namespace AMS.ahutit
                 if (result > 0)
                 {
                     _student.StudentPwd = newPwd;
-                    MessageBox.Show("密码修改成功", "提示");
-                    ClearInputs();
+                    MessageBox.Show("密码修改成功，请重新登录", "提示");
+                    Program.IsLogout = true;
+                    Form? host = this.FindForm();
+                    host?.Close();
                 }
                 else
                 {
