@@ -25,7 +25,7 @@ namespace DAL.ahutit
                 if (objReader.Read())
                 {
                     objAdmin.AdminName = objReader["AdminName"]?.ToString() ?? string.Empty;
-                    objAdmin.Pwd = objReader["LoginPwd"]?.ToString() ?? string.Empty; // Map DB LoginPwd to Model Pwd
+                    objAdmin.Pwd = objReader["LoginPwd"]?.ToString() ?? string.Empty;
                     objReader.Close();
                     return objAdmin;
                 }

@@ -137,9 +137,8 @@ namespace AMS.ahutit
             }
             //获取考勤卡号
             string cardNo = dgStd.CurrentRow.Cells["CardNo"].Value?.ToString() ?? string.Empty;
-            //Student student = studentService.GetStudentByCardNo(cardNo); // Getting full object not strictly needed for ID if we had it, but for delete we need ID.
-            // Wait, deleteStdInfoByID takes stdId. 
-            // So I MUST fetch the student to get the StdId.
+            //Student student = studentService.GetStudentByCardNo(cardNo); 
+
             Student? student = studentService.GetStudentByCardNo(cardNo);
             if (student == null) return;
             

@@ -42,7 +42,12 @@ namespace AMS.ahutit
 
             string loginId = tbxName.Text.Trim();
             string password = tbxPsw.Text.Trim();
-            string role = cmbRole.SelectedItem?.ToString() ?? "管理员";
+            string role;
+            if (cmbRole.SelectedItem != null)
+                role = cmbRole.SelectedItem.ToString();
+            else
+                role = "管理员";
+
 
             if (role == "管理员")
             {
